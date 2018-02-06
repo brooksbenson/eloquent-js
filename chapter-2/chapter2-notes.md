@@ -6,11 +6,11 @@ An expression is any fragment of code that produces a value.
 
 ## Side effects
 
-A side effect is when a program statement effects the statements that come after it.
+A side effect is when a program statement affects the environment.
 
 ## Binding
 
-JavaScript bindings are used to catch and hold values. When a binding has been defined, a program can use the binding name to refer to its value.
+Bindings are used to catch and hold values. When a binding has been defined, a program can use the binding name to refer to its value.
 
 ## The environment
 
@@ -26,14 +26,12 @@ When a function is invoked and produces a value, it is said to return that value
 
 ## Control flow
 
-When a program contains more than one statement, that statements are executed from top to bottom.
+The order that statements get executed in a program.
 
 ### Conditional flow
 
-Conditional flow refers to pieces of program only executing when defined conditions are met.
+A control flow where statements in a program get executed under defined conditions.
 
 ### Looping flow
 
-Looping flow refers to a program repeatedly executing a portion of itself while also updating its state on each loop.
-
-### Updating Bindings
+A control flow where statements in a program get executed repeatedly.
