@@ -68,5 +68,7 @@ will still be valid for use.
 
 ## Recursion
 
-Recursion is a program behavior where a function calls itself to reach a solution. Recursion
+Recursion is a control flow where a function calls itself to reach a solution. Recursion
 only works if the call stack doesn't exceed its cap.
+
+A function is only a value.
