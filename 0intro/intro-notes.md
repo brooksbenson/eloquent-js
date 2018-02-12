@@ -2,11 +2,15 @@
 
 ## Programming Language
 
-A programming language is an artificially constructed language used to instruct computers. Programming languages have borrowed heavily from the way humans communicate with each other. Computer languages allow words and phrases to be combined in new ways, allowing the programmer to express ever new concepts.
+A programming language is an artificially constructed language used to instruct computers.
+ 
+Programming languages have borrowed heavily from the way humans communicate with each other. 
+
+Computer languages allow words and phrases to be combined in new ways, allowing the programmer to express ever new concepts.
 
 Language based interfaces have largely been replaced with graphical interfaces, which are much more limited. JavaScript, the language covered by this book, is built into every modern web browser, making it a useful language to learn.
 
-A good programming language allows the programmer to talk about the actions the computer has to take at a higher level, omit uninteresting details, and provides convenient building blocks out of the box and also allows a programmer to create their own.
+A good programming language allows the programmer to talk about the actions the computer has to take at a higher level, omitting uninteresting details. It should also provides convenient building blocks out of the box and allow a programmer to create their own.
 
 ## Programs
 
@@ -26,7 +30,7 @@ JavaScript was introduced in 1995 as a way to add programs to the Netscape Navig
 
 ### ECMAScript Standard
 
-A standard that describes the way JavaScript should work so that various pieces of software that claim to support it were actually talking about the same language. JavaScript and ECMAScript are essentially the same thing.
+A standard that describes the way JavaScript should work.
 
 ## Code
 

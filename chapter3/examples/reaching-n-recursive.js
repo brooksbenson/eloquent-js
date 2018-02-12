@@ -31,5 +31,3 @@ function reachingN(target) {
   }
   return reach(1, '1');
 }
-
-console.log(reachingN(201));

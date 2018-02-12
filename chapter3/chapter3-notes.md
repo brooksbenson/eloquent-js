@@ -71,4 +71,27 @@ will still be valid for use.
 Recursion is a control flow where a function calls itself to reach a solution. Recursion
 only works if the call stack doesn't exceed its cap.
 
-A function is only a value.
+## Growing Functions
+
+Functions arise in programs for two reasons:
+
+1. To avoid rewriting similar code.
+2. Capturing a piece of functionality that seems to deserve its own name.
+
+### Naming
+
+The ease of defining a name for a function is an indicator of how well you understand the functionality being defined.
+
+Functions with nice, unconvoluted names are easier on the eyes.
+
+### A note on cleverness
+
+Don't make a function more clever than it has to be. Only add the functionality that you are absolutely sure you're going to need.
+
+## Functions and side effects
+
+Functions can be roughly divided into those that are called for their side effects and those that are called for their return value.
+
+### Pure function
+
+A pure function is one that doesn't produce side effects and doesn't rely on side effects from other code.

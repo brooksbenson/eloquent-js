@@ -5,15 +5,15 @@ The world of the computer contains only data. You can store data, read data, and
 
 ## Values
 
-A value at the brass-tags is a chunk of bits. In JavaScript, there are six discrete value types, each of which has its own role.
+A value, at the brass-tags, is a chunk of bits. In JavaScript, there are six discrete value types, each of which has its own role.
 
 ### Numbers
 
-Numbers in JavaScript represent numerical values and use a fixed number of 64 bits of memory. This means the number of numbers that can be represented in JavaScript is limited.
+Numbers in JavaScript represent numerical values. Each discrete numerical expression uses a fixed number of 64 bits of memory in the computer. This means the number of numbers that can be represented in JavaScript is limited.
 
 #### NaN
 
-A numerical value that results from a nonsensical operation.
+A numerical value that results from a nonsensical numerical operation.
 
 #### Infinity
 
@@ -29,7 +29,7 @@ Characters preceded by a \ have special meaning.
 
 #### Unicode Standard
 
-Strings are modeled as a sequence of bits within a computer. The way JavaScript converts characters to bits is based on the unicode standard. The unicode standard assigns a number to almost every character. The unicode standard makes it possible to encode and decode characters across multiple platforms.
+Strings are modeled as a sequence of bits within a computer. The way JavaScript converts characters to bits is based on the unicode standard. The unicode standard assigns a number to almost every character, which makes it possible to encode and decode characters across multiple platforms.
 
 #### Template literals
 
