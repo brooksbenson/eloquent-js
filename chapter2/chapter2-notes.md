@@ -10,7 +10,7 @@ A side effect is when a program statement affects the environment.
 
 ## Binding
 
-Bindings are used to catch and hold values. When a binding has been defined, a program can use the binding name to refer to its value.
+Bindings are used to catch and hold values. When a binding has been defined, a program can use the binding name to refer to the value it is binded to.
 
 ## The environment
 

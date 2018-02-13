@@ -2,7 +2,6 @@
 
 The world of the computer contains only data. You can store data, read data, and create new data using a computer. All data is represented as long sequences of bits. A bit is any kind of two-valued thing, usually described as a zero or one. Any kind of discrete information can be represented by bits.
 
-
 ## Values
 
 A value, at the brass-tags, is a chunk of bits. In JavaScript, there are six discrete value types, each of which has its own role.
@@ -46,7 +45,6 @@ Used to denote the absence of a meaningful value
 ### null
 
 Used to denote the absence of a meaningful value
-
 
 ## Operators
 
@@ -95,4 +93,4 @@ The ternary operator is also called the conditional operator because the boolean
 
 ## Automatic Type Conversion
 
-When an operator is applied to the "wrong" type of operand, JavaScript will convert the operand to a type the operator can work with.
+When an operator is applied to the "wrong" type of operand, JavaScript will quietly convert the operand to a type the operator can work with.

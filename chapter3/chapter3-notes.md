@@ -1,12 +1,13 @@
 # Functions
 
 A function is a piece of program wrapped in a value. Functions come in handy
-because they give structure to larger programs by reducing repition, associating
+because they give structure to larger programs by reducing repitition, associating
 names with subprograms, and isolate subprograms from one another.
 
-Functions are created by an expression that starts with the keyword *function*.
-
 Functions have a set of parameters and a body.
+
+Function expressions either start with the *function* keyword or use a fat arrow *=>* that separates
+a set of parameters from a body.
 
 Functions are values just like any other value. The binding a function is assigned to
 can receive a new binding, and a function can be passed as an argument to another function.
