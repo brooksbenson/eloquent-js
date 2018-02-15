@@ -4,7 +4,7 @@ Data structures are the particular ways that a collection of values are stored. 
 
 ## Arrays
 
-An array is value for stories sequences of other values.
+An array is a value for stories sequences of other values.
 
 ### Indexes
 
@@ -12,4 +12,39 @@ Every value in an array has an index, which starts at 0 for the first value, and
 
 ## Properties
 
-Every value in JavaScript, except null & undefined, have properties. Properties store useful information about a value, and can also store functions that have useful functionality related to the value.
+Every value in JavaScript, except null & undefined, have properties. Properties hold values.
+
+### Method
+
+A method is a property that holds a function value.
+
+## Stacks
+
+A stack is a data structure that allows a program to push values onto it and pop values off. The terms push and pop are popular when refering to adding or removing from a stack.
+
+## Objects
+
+Objects are values used to define arbitrary collections of properties.
+
+### delete
+
+A unary operator used to remove a property from an object.
+
+### in
+
+A binary operator used on a string and an object that returns a boolean stating whether or not the object operand has a property named the string operand.
+
+### Object.keys
+
+A method of the Object value that takes an object as an argument and returns an array storing the name of every property on the provided object.
+
+### Object.assign
+
+A method of the Object value that takes an object as its first and second argument, then defines the properties of the second argument to the first.
+
+## Mutability
+
+An object value is immutable, meaning that a program can change an object value to be something else. Strings, numbers, and booleans, on the other hand, are immutable, meaning that any value of the listed types cannot be changed. They can be used in expressions to produce new values, but cannot themselves be changed.
+
+If a binding is binded to an object value, and that object value changes, the binding points to the modified object. If a binding is binded to an immutable value, the binding needs to be rebinded to a completelty new value in order for its value to change.
+
