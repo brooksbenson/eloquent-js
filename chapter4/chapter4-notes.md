@@ -48,3 +48,4 @@ An object value is immutable, meaning that a program can change an object value 
 
 If a binding is binded to an object value, and that object value changes, the binding points to the modified object. If a binding is binded to an immutable value, the binding needs to be rebinded to a completelty new value in order for its value to change.
 
+## Array Loops
