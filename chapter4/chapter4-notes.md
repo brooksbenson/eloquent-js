@@ -47,3 +47,19 @@ A method of the Object value that takes an object as its first and second argume
 An object value is immutable, meaning that a program can change an object value to be something else. Strings, numbers, and booleans, on the other hand, are immutable, meaning that any value of the listed types cannot be changed. They can be used in expressions to produce new values, but cannot themselves be changed.
 
 If a binding is binded to an object value, and that object value changes, the binding points to the modified object. If a binding is binded to an immutable value, the binding needs to be rebinded to a completelty new value in order for its value to change.
+
+## Serialization
+
+Serialization is the process of translating data structures or object state into a format that can be stored or transmitted and reconstructed later. When a serialized product is reread on another machine, it can be used to create a semantically identical clone of the original object.
+
+### JSON
+
+A popular serialization format is called JSON, which stands for JavaScript Object Notation. JSON is widely used as a data storage and communication format on the web, even in languages other than JavaScript.
+
+### JSON.stringify
+
+A method of the JSON value that serializes a value in the JSON format.
+
+### JSON.parse
+
+A method of the JSON value that parses a serialized JavaScript value.
