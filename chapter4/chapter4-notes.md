@@ -44,7 +44,7 @@ A method of the Object value that takes an object as its first and second argume
 
 ## Mutability
 
-An object value is immutable, meaning that a program can change an object value to be something else. Strings, numbers, and booleans, on the other hand, are immutable, meaning that any value of the listed types cannot be changed. They can be used in expressions to produce new values, but cannot themselves be changed.
+An object value is mutable, meaning that a program can change an object value to be something else. Strings, numbers, and booleans, on the other hand, are immutable, meaning that any value of the listed types cannot be changed. They can be used in expressions to produce new values, but cannot themselves be changed.
 
 If a binding is binded to an object value, and that object value changes, the binding points to the modified object. If a binding is binded to an immutable value, the binding needs to be rebinded to a completelty new value in order for its value to change.
 

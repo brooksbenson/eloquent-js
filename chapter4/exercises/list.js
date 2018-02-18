@@ -13,16 +13,17 @@
   returns the element located at that position in the list
 */
 
-const prepend = (rest, value) => ({ value, rest });
-const nth = ({rest, value}, pos, i = 1) => i === pos ? value : nth(rest, pos, ++i);
+const nth = ({rest, value}, pos, i = 1) => {
+  return i === pos 
+    ? value 
+    : nth(rest, pos, ++i);
+}
 
+const prepend = (rest, value) => ({ rest, value });
 function arrayToList(arr) {
   let list = null;
   arr.reverse().forEach(x => {
-    list = {
-      value: x,
-      rest: list
-    }
+    list = prepend(list, x);
   });
   return list;
 }
