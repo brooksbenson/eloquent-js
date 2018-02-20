@@ -19,8 +19,8 @@ const nth = ({rest, value}, pos, i = 1) => {
     : nth(rest, pos, ++i);
 }
 
-const prepend = (rest, value) => ({ rest, value });
 function arrayToList(arr) {
+  const prepend = (list, x) => ({ rest: list, value: x });
   let list = null;
   arr.reverse().forEach(x => {
     list = prepend(list, x);
