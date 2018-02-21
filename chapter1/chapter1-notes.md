@@ -28,7 +28,7 @@ Characters preceded by a \ have special meaning.
 
 #### Unicode Standard
 
-Strings are modeled as a sequence of bits within a computer. The way JavaScript converts characters to bits is based on the unicode standard. The unicode standard assigns a number to almost every character, which makes it possible to encode and decode characters across multiple platforms.
+Unicode standard originally encoded every character as a 16 bit number, which is not enough to encode every character. The HAN script alone contains 89000 characters. Each 16 bit number is called a character unit. Most common characters are represented with a single character unit, and some are represented with two. If you were to calculate the length of a character that was encoded with two character units, the product would be 2. This can introduce some problems into a program if you're not careful.
 
 #### Template literals
 
