@@ -39,6 +39,13 @@ class Rabbit {
   constructor(type) {
     this.type = type;
   }
+
+  get type() {
+    return this.type;
+  }
+  set type(value) {
+    this.type = value;
+  }
   speak() {
     console.log(`The ${this.type} rabbit says '${line}'.`);
   }
