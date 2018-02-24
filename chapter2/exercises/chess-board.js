@@ -1,35 +1,30 @@
 /*
-  Create function that returns string representing size * size grid,
-  using newline characters to separate lines. At each point on the grid
-  there is either a space of a "#" character. The characters should form
-  a chess board.
+  Create function that returns a string representing a n * n sized grid
+  using newline characters to separate lines.
+
+  The characters that make up the grid should be two in total and should
+  alternate as to form a chess board.
 */
 
-const chessBoard = (size) => {
+function chessBoard(size) {
   let board = '';
   for (let i = 0; i < size; i++) {
-    let row = '';
     for (let j = 0; j < size; j++) {
-      row += (i + j) % 2
-        ? ' '
-        : '#';
+      let char = ((i + j) % 2) ? ' ' : '#';
+      board += char;
     }
-    board += row + '/n';
+    board += '\n';
   }
   return board;
 };
 
-/*
+// chessBoard(8)
 
-chessBoard(8)
-
-# # # # 
- # # # #
-# # # # 
- # # # #
-# # # # 
- # # # #
-# # # # 
- # # # #
-
-*/
+// # # # # 
+//  # # # #
+// # # # # 
+//  # # # #
+// # # # # 
+//  # # # #
+// # # # # 
+//  # # # #

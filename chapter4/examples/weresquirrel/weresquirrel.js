@@ -1,22 +1,10 @@
-// Jaque keeps turning into a squirrel, and it is
-// happening at irregular times, so he begins a daily
-// log of everything he did on a particular day to find
-// out what is causing this.
+const eventData = require('./event-data');
 
-let log = [];
-
-const addEntry = (events, squirrel) => {
+const log = [];
+entries.forEach(({events, squirrel}) => {
   log.push({events, squirrel});
-};
+});
 
-const entries = require('./event-data')
-entries.forEach(day => addEntry(day.events, day.squirrel));
-// Once Jaque has added enough data to his log, he intends
-// to use statistics to find out which events are related
-// to his squirrelification.
-
-// Here is a function that uses the phi coefficient formula
-// to compute the correlation between an event and squirrelification
 
 function phi(table) {
   return (table[3] * table[0] - table[2] * table[1]) /
@@ -26,15 +14,10 @@ function phi(table) {
               (table[0] + table[2]));
 }
 
-// To compute a given table for an event, we need to loop
-// through every entry to see whether the event happens,
-// if it happens with squirrelification, or if squirrelification
-// happens without the event
-
 function tableFor(event) {
   const table = [0, 0, 0, 0];
   log.forEach(entry => {
-    tableIndex = 0;
+    let tableIndex = 0;
     if (entry.events.includes(event)) tableIndex += 1;
     if (entry.squirrel) tableIndex += 2;
 
@@ -43,10 +26,7 @@ function tableFor(event) {
   return table;
 }
 
-// To compute a correlation for every type of event in the data set,
-// we need to build up a data structure listing every unique event.
-
-function journalEvents() {
+function uniqueJournalEvents() {
   let uniqE = new Set();
   log.forEach(({events}) => {
     events.forEach(event => uniqE.add(event));
@@ -54,12 +34,8 @@ function journalEvents() {
   return [...uniqE];
 }
 
-// Time to find out what is causing our man Jaque to turn into a squirrel.
-
-const events = journalEvents();
-
 let correlatedEvents = [];
-events.forEach(event => {
+uniqueJournalEvents().forEach(event => {
   let correlation = phi(tableFor(event));
   if (Math.abs(correlation) > .3) {
     correlatedEvents.push({

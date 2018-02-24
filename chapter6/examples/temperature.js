@@ -14,3 +14,6 @@ class Temperature {
     return new Temperature((value - 32) / 1.8);
   }
 }
+
+const temp = Temperature.fromFahrenheit(100);
+temp instanceof Temperature; //true

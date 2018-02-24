@@ -1,31 +1,22 @@
 # Functions
 
-A function is a piece of program wrapped in a value. Functions come in handy
-because they give structure to larger programs by reducing repitition, associating
-names with subprograms, and isolate subprograms from one another.
+A function is a piece of program wrapped in a value and are awesome because they create a separation of concerns. They are a value just like any other value.
 
-Functions have a set of parameters and a body.
+## function expressions
 
-Function expressions either start with the *function* keyword or use a fat arrow *=>* that separates
-a set of parameters from a body.
-
-Functions are values just like any other value. The binding a function is assigned to
-can receive a new binding, and a function can be passed as an argument to another function.
+Function expressions are indicated by either a *function* keyword or a fatty arrow *=>*.
 
 ## Parameters
 
-Parameters to function behave like regular bindings, but their values are given by the
-caller of the function, not the function itself.
+Function parameters behave like regular bindings. Their values are assigned by *arguments*. 
 
-### Additional arguments
+## Arguments
 
-A function can take a large number of arguments without complaints, even if it wasn't
-designed to take the number of arguments given.
+Arguments are the *values* that are passed to functions upon invocation.
 
 ### Default arguments
 
-It is possible to define a function and give its parameters default values. These values
-will be used if the parameter does not receive a value upon function invocation.
+It is possible to git parameters default values. These values will be used if the parameter does not receive corresponding arguments.
 
 ## Body
 
@@ -40,32 +31,22 @@ following expression returns undefined.
 
 ## Scope
 
-Every binding has a scope. The scope of a binding is the parts of a program where that
-binding is visible. 
-
-Bindings that are defined as parameters or inside of functions are visible only to
-that function and are called *local*.
+Scope refers to the bindings that are visible at any point in a program. Bindings that are defined as parameters or within a function body cannot be accessed by code outside of the function, so function expressions are said to create their own *scope*.
 
 ### Block scope
 
-Bindings defined with let and const inside a block are visible only within that block.
+Bindings defined with let and const within a set of curly braces can only be accessed from within those curly braces. This is called *block scoping*.
 
 ## The Call Stack
 
-The call stack is how control moves through functions in a program. It is how a computer
-remembers the context that a function was called in, so that it can return to that point
-in the program after the function has finished executing.
+The call stack is how control moves through functions in a program. It is how a computer remembers the context that a function was called in, so that it can return to that point in the program after the function has finished executing.
 
 The call stack has a cap on how large it can grow. When the stack grows too large, or the
 cap has been exceeded, then the program will fail.
 
 ## Closures
 
-A closure is a function enclosed by another function. The enclosed function has access to the
-local bindings created by the enclosing function. If the enclosed function is returned by the
-enclosing function, the enclosed function still has access to the enclosing functions local
-bindings. If the enclosed function references those local bindings in its body, those values
-will still be valid for use.
+A closure is a pattern where a function returned by another function remembers the scope of the function that returned it, thus allowing it to access those values in its body.
 
 ## Recursion
 
@@ -79,20 +60,14 @@ Functions arise in programs for two reasons:
 1. To avoid rewriting similar code.
 2. Capturing a piece of functionality that seems to deserve its own name.
 
-### Naming
-
-The ease of defining a name for a function is an indicator of how well you understand the functionality being defined.
-
-Functions with nice, unconvoluted names are easier on the eyes.
-
 ### A note on cleverness
 
-Don't make a function more clever than it has to be. Only add the functionality that you are absolutely sure you're going to need.
+Don't make a function more clever than it has to be. Only add the functionality that you're sure you're going to need.
 
-## Functions and side effects
+## Pure functions and side effects
 
 Functions can be roughly divided into those that are called for their side effects and those that are called for their return value.
 
 ### Pure function
 
-A pure function is one that doesn't produce side effects and doesn't rely on side effects from other code.
+A pure function is one that doesn't rely on the environment outside of its scope and doesn't affect the environment outside of its scope. 

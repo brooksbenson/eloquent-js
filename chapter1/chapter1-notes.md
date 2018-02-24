@@ -1,6 +1,8 @@
 # Values, Types, and Operators
 
-The world of the computer contains only data. You can store data, read data, and create new data using a computer. All data is represented as long sequences of bits. A bit is any kind of two-valued thing, usually described as a zero or one. Any kind of discrete information can be represented by bits.
+In the world of the computer, there is only data. You can store data, read data, and create new data using a computer. 
+
+All data is represented as long sequences of bits; a bit is any two-valued thing, usually described as a zero or one. Any kind of discrete information can be represented by bits.
 
 ## Values
 
@@ -16,7 +18,7 @@ A numerical value that results from a nonsensical numerical operation.
 
 #### Infinity
 
-Infinity and -Infinity represent positive and negative infinities and are rarely useful.
+Infinity and -Infinity represent positive and negative infinities.
 
 ### Strings
 

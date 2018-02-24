@@ -10,7 +10,7 @@ A side effect is when a program statement affects the environment.
 
 ## Binding
 
-Bindings are used to catch and hold values. When a binding has been defined, a program can use the binding name to refer to the value it is binded to.
+Bindings are used to hold values. When a binding has been defined, a program can use the binding name to refer to the value it is binded to.
 
 ## The environment
 
@@ -30,8 +30,12 @@ The order that statements get executed in a program.
 
 ### Conditional flow
 
-A control flow where statements in a program get executed under defined conditions.
+A conditional flow is where statements in a program get executed under defined conditions.
 
 ### Looping flow
 
-A control flow where statements in a program get executed repeatedly.
+A looping flow where statements in a program get executed repeatedly.
+
+### Recursive flow
+
+A recursive flow is where a function calls itself repeatedly until told otherwise.

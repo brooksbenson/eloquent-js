@@ -1,20 +1,11 @@
-// const multiplier = function(factor) {
-//   return (n) => n * factor;
-// };
+/*
+  An example of a closure
+*/
 
-// const twice = multiplier(2);
-// const thrice = multiplier(3);
+const sayHiTo = (name) => (greeting) => `Hello, ${name}. ${greeting}`;
 
-// console.log(twice(10)); //20
-// console.log(thrice(10)); //30
+const sayHiToBob = sayHiTo('Bob');
+const sayHiToRachel = sayHiTo('Rachel');
 
-let globalNumber = 4;
-
-const encloseMultiplier = function(localNumber) {
-  return () => globalNumber * localNumber;
-};
-
-const multiplier = encloseMultiplier(4);
-globalNumber = 2;
-
-console.log(multiplier()); //8
+sayHiToBob(`You're fantastic.`); // Hello, Bob. You're fantastic.
+sayHiToRachel(`You're a charm.`) //Hello, Rachel. You're a charm.
