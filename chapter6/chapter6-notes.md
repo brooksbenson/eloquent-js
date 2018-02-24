@@ -57,11 +57,14 @@ Every value produced by Symbol invocation is unique even if provided the same in
 
 Objects provided to for/of loops are expected to be iterable, meaning they have a method named with the Symbol.iterator symbol. When called, that method should return an object that provides a second interface, *iterator*. This is the actual thing that iterates. It should have a next method that return the next result. That result should be an object with a value property, providing the next value, and a done property, which returns true if there is no more results and false if otherwise.
 
-## getters & setters
+## getters & setters & static methods
 
 Objects can contain properties that look like non-method properties, but are in fact methods in disguise. This pattern is implements what are called getters and setters.
 
-By prepending *set* or *get* in front of a property, the property will implement the getter function when the property is being looked up, or the setter function when the property is being manipulated.
+By putting *set* or *get* in front of a property, the property will implement the getter function when the property is being looked up, or the setter function when the property is being manipulated.
+
+Static methods are method that are stored in a class' constructor, rather than its prototype.
 
 ## Inheritance
 
+Inheritance describes a behavior in object-oriented programming where a class inherits properties and behavior from another class. The ancestor class is called the *superclass*, and the inheritor is the *subclass*.

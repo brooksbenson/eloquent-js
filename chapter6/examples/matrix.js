@@ -58,3 +58,18 @@ class MatrixIterator {
 
 //In a symmetric matrix, the values stored at (x, y)
 //equal that at (y, x)
+
+class SymmetricMatrix extends Matrix {
+  constructor(size, content = (x, y) => undefined) {
+    super(size, size, (x, y) => (
+      x > y ? content(x, y) : content(y, x)
+    ));
+  }
+
+  set(x, y, value) {
+    super.set(x, y, value);
+    if (x != y) {
+      super.set(y, x, value);
+    }
+  }
+}
