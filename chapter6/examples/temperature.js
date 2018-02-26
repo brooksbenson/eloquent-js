@@ -15,5 +15,5 @@ class Temperature {
   }
 }
 
-const temp = Temperature.fromFahrenheit(100);
-temp instanceof Temperature; //true
+const temp100 = Temperature.fromFahrenheit(100);
+temp100 instanceof Temperature; //true
