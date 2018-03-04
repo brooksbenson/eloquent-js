@@ -24,9 +24,9 @@ Infinity and -Infinity represent positive and negative infinities.
 
 A value type that represents text.
 
-#### Escaping character
+#### Escape character \
 
-Characters preceded by a \ have special meaning.
+Escapes special characters to literal and literal characters to special.
 
 #### Unicode Standard
 

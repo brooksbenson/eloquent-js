@@ -34,4 +34,4 @@ Backtracking also occurs with the + and * operators. If a regex is written incor
 
 ### Greed
 
-The +, *, and {} operators are greedy. This term means they will match as many characters as possible before having to backtrack. This behavior can cause problems in our regex patterns. To avoid this, apply a zero or one operator (?) after any of them. This will cause the engine to match more only when the preceding pattern does not match the text after the current position.
+The +, *, ?, and {} operators are greedy. This term means they will match as many characters as possible before having to backtrack. This behavior can cause problems in our regex patterns. To avoid this, apply a zero or one operator (?) after any of them. This will cause the engine to match more only when the preceding pattern does not match the current position.

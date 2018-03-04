@@ -1,6 +1,6 @@
 /*
   Test
-  j
+  
   The simplest method of Regular Expression objects
   is test. It receives a string value and returns a
   boolean stating if the pattern matched the text.
@@ -85,9 +85,11 @@ crying.test('boohooohoo'); //true
   Regular Expressions have an exec method that takes
   a string value and, if there is a match, will return
   an array that stores the match and all the substrings
-  that matched the groups defined within the regex.
+  that matched the groups defined within the regex. The
+  return value will have property binded to the index
+  of where the match began.
 
-  Strings have a match method that behave similarly
+  Strings have a match method that behaves similarly
   to exec, but define a regex value as a parameter.
 */
 
@@ -165,5 +167,85 @@ function minusOne(match, amount, unit) {
   return `${amount} ${unit}`;
 }
 
-stock.replace(/(\d+) (\w+)/g, minusOne);
-// 'No cabbage, 1 lemon, 100 eggs'
+stock.replace(/(\d+) (\w+)/g, minusOne); // 'No cabbage, 1 lemon, 100 eggs'
+
+/*
+  Dynamically Creating RegExp Objects
+
+  In some programs you'll create regular expressions dynamically 
+  with the RegExp constructor. This will require building up a 
+  string that can be translated into a regular expression.
+*/
+{
+  let name = 'harry';
+  let text = 'Harry is a great guy.';
+  let regex = new RegExp('\\b(' + name + ')\\b', 'gi');
+  text.replace(regex, '_$&_'); //_Harry_ is a great guy.
+
+  let name2 = "dea+hl[]rd";
+  let text2 = "This dea+hl[]rd guy is creepy.";
+  let escaped = name.replace(/[\\[.+*?(){|^$]/g, "\\$&");
+  let regex2 = new RegExp("\\b" + escaped + "\\b", "gi");
+  text2.replace(regex2, "_$&_"); //This _dea+hl[]rd_ guy is creepy.
+}
+/*
+  Search method
+
+  The search method receives a regular expression
+  and returns the index where a match begins. If
+  no match was found, it will return a -1.
+*/
+
+'  word'.search(/\S/); //2
+'  '.search(/\S/); //-1
+
+/*
+  Regex properties (source, lastIndex)
+
+  The source property contained in a formed
+  regular expression is binded to the string
+  expression that it was created from.
+
+  The lastIndex property will, in some
+  circumstances, control where the next
+  match will start. Those circumstances
+  are that either the global (g) or sticky
+  (y) flags are enabled and the match should
+  happen through the exec method.
+
+  The difference between global and sticky
+  is that, when sticky is enabled, the match
+  must begin at the start of the last index,
+  whereas with global it will search ahead.
+*/
+
+/test/.source; //test
+{
+  let pattern = /x/g;
+  let text = 'xyyxz';
+  pattern.lastIndex = 2;
+  let match = pattern.exec(text);
+  match.index; //3
+  pattern.lastIndex; //4
+  text += text; //xyyxzxyyxz
+  let nextMatch = pattern.exec(text);
+  nextMatch.index; //5
+  pattern.lastIndex; //6
+}
+
+{
+  let stickyPattern = /abc/y;
+  stickyPattern.lastIndex = 4;
+  stickyPattern.exec('xyz abc'); //[ 'abc', index: 4, input: 'xyz abc' ]
+  stickyPattern.lastIndex = 0;
+  stickyPattern.exec('xyz abc'); //null
+}
+
+{
+  let text = 'The string with 3 numbers in it... 42 and 84';
+  let number = /\b\d+\b/g;
+  let match, info = [];
+  while (match = number.exec(text)) {
+    info.push(`Found ${match[0]} at ${match.index}`);
+  }
+}
