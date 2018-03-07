@@ -28,10 +28,10 @@
 */
 
 /*
-  The task is the convert an INI file to an object
-  whose properties are binded to global settings and
-  sub objects whose properties are binded to section
-  settings.
+  The task is to convert an INI file to an object
+  whose properties represent either global settings
+  or subsections whose properties represent settings
+  for that section.
 */
 
 function parseINI(string) {
@@ -62,5 +62,5 @@ function parseINI(string) {
   of a new section, it is set equal to a property of the 
   result object that is binded to a fresh object. This
   pattern is a succinct way to create the data structure
-  we are looking for.t
+  we are looking for.
 */

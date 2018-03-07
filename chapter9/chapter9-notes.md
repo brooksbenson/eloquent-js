@@ -4,7 +4,7 @@ Regular expressions are a way to describe patterns in string data. They form a s
 
 ## Regular Expression Values
 
-A regular expression is a type of object that can be formed by the *RegExp* constructor or by writing a literal value and enclosing it with forward slashes.
+A regular expression is a type of object that can be formed by the *RegExp* constructor or by writing a literal regex pattern and enclosing it with forward slashes.
 
 ### Constructor Syntax
 
@@ -30,8 +30,12 @@ When the current position matches the first part of the expression, the current 
 
 If multiple choice patterns in a regex can match a part of a string, the engine will try all of them, starting with the first, then will *backtrack* the current position to where the choice pattern began, and will try another choice. This will make the process slower.
 
-Backtracking also occurs with the + and * operators. If a regex is written incorrectly, they will try and consume a whole string, and by reaching the end, the engine recognizes there is still parts of the expression to check, then will backtrack the current position one character at a time, trying to match the rest of the expression.
+Backtracking also occurs with the + and * operators. If a regex is written incorrectly, the + and * operators will try and consume a whole string, and by reaching the end, the engine recognizes there is still parts of the expression to check, then will backtrack the current position one character at a time, trying to match the rest of the expression.
 
 ### Greed
 
 The +, *, ?, and {} operators are greedy. This term means they will match as many characters as possible before having to backtrack. This behavior can cause problems in our regex patterns. To avoid this, apply a zero or one operator (?) after any of them. This will cause the engine to match more only when the preceding pattern does not match the current position.
+
+## Unicode Option
+
+JavaScript regular expressions work based on code units, and some characters are represented by two code units, like emojis. To get the the regular expression to behave as expected for characters that use to code units, add the unicode option (/u).

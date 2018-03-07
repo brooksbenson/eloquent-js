@@ -84,13 +84,18 @@ crying.test('boohooohoo'); //true
 
   Regular Expressions have an exec method that takes
   a string value and, if there is a match, will return
-  an array that stores the match and all the substrings
-  that matched the groups defined within the regex. The
-  return value will have property binded to the index
-  of where the match began.
+  an array whose first value is a string that represents
+  the entire match and whose following values are substrings
+  that represent parts of the match that matched groups defined
+  within the regular expression. If there is no match, the method
+  will return null.
 
-  Strings have a match method that behaves similarly
-  to exec, but define a regex value as a parameter.
+  If the exec is successful, properties of the regular expression
+  value will be updated, such as lastIndex and source.
+
+  The returned value stores a .index property that represents
+  the index where the match began, and an input property that
+  represents the string that the method was called with.
 */
 
 /\d+/.exec('one two 100'); //["100"]
@@ -99,6 +104,21 @@ crying.test('boohooohoo'); //true
 /bad(ly)?/.exec('bad'); //["bad", undefined]
 /(\d)+/.exec('123'); // ["123", "3"]
 
+
+/*
+  Match
+
+  The match method is a property of string values that
+  behaves similarly to RegExp.prototype.exec. The difference
+  is that, if the g option is enabled, match will return an
+  array that contains a list of string values that matched
+  the regular expression.
+
+  It's worth emphasizing that the exec method of regex values
+  will return information about the *first* match it encounters
+  after the *index* defined by *.lastIndex* on the RegExp value, and
+  will then update properties on the regex value itself.
+*/
 
 function getDate(s) {
   let [_, d, m, y] = s.match(/^(\d{1,2})-(\d{1,2})-(\d{4})$/);
@@ -110,13 +130,13 @@ getDate("17-3-1995"); //1995-03-17T07:00:00.000Z
 /*
   Boundaries
 
-  ^ - atches the start of the string
+  ^ - Matches the start of the string
   $ - Matches the end of the string
   \b - Matches \w bordered by \W or ^$. Does not match an actual character.
 */
 
 let words = 'Merry dol, derry dol';
-words.match(/(\b\w+\b)+/g); //[ 'Merry', 'dol', 'derry', 'dol' ]
+/(\b\w+\b)+/g.exec(words); //[ 'Merry', 'dol', 'derry', 'dol' ]
 
 /*
   Choice patterns
@@ -132,7 +152,7 @@ let animalCount = /\b\d+ (pig|cow|duck)s?\b/;
 
   The replace method is part of the String class.
 
-  The first argument can either be a string or a regex,
+  The first argument can either be a string or a regex value,
   and is used to match parts of the string. (To match multiple
   parts of the string, the g option must be added to the regex).
   When a match occurs, the second argument determines what should
@@ -140,14 +160,17 @@ let animalCount = /\b\d+ (pig|cow|duck)s?\b/;
   be a string or a function.
   
   A string as the second argument: if the matching expression uses
-  groups, the groups can be referred to by using $n, n referring to
-  the place of the group in the order of groups in the expression. It
-  is possible to refer to the whole match using $&.
+  groups, the groups can be referred to by using $n notation, where n
+  is a number that denotes the place of the group in the order of groups 
+  in the regular expression, starting at 1.
+  
+  It is possible to refer to the whole match using $&.
 
   A function as the second argument: if the matching expression uses
   groups, the substrings matching the groups are passed as arguments
   starting at the second argument. The first argument is the whole
-  match itself.
+  match itself. The return value from the function determines the
+  replacement.
 */
 
 let borobudur = 'Borobudur';
@@ -158,7 +181,7 @@ borobudur.replace(/[ou]/g, 'a'); //Barabadar
 //'Steve Jobs\nBill Gates\nJeff Bezos'
 
 let stock = '1 cabbage, 2 lemons, 101 eggs';
-function minusOne(match, amount, unit) {
+function minusOne(_, amount, unit) {
   amount = Number(amount) - 1;
   if (amount === 0) amount = 'No';
   if (amount === 1) {
@@ -182,11 +205,12 @@ stock.replace(/(\d+) (\w+)/g, minusOne); // 'No cabbage, 1 lemon, 100 eggs'
   let regex = new RegExp('\\b(' + name + ')\\b', 'gi');
   text.replace(regex, '_$&_'); //_Harry_ is a great guy.
 
-  let name2 = "dea+hl[]rd";
-  let text2 = "This dea+hl[]rd guy is creepy.";
-  let escaped = name.replace(/[\\[.+*?(){|^$]/g, "\\$&");
-  let regex2 = new RegExp("\\b" + escaped + "\\b", "gi");
-  text2.replace(regex2, "_$&_"); //This _dea+hl[]rd_ guy is creepy.
+  let name = "dea+hl[]rd\\";
+  let text = "This dea+hl[]rd\\ guy is creepy.";
+  let specialChars = /[\\.+*?()[{|^$]/g;
+  let escaped = name.replace(specialChars, "\\$&");
+  let regex = new RegExp("\\b" + escaped, "gi");
+  text.replace(regex, '_$&_'); //This _dea+hl[]rd\_ guy is creepy.
 }
 /*
   Search method
@@ -249,3 +273,36 @@ stock.replace(/(\d+) (\w+)/g, minusOne); // 'No cabbage, 1 lemon, 100 eggs'
     info.push(`Found ${match[0]} at ${match.index}`);
   }
 }
+
+/*
+  The unicode option
+
+  By default, JavaScript regular expressions match
+  based on code units, and as stated in chapter 5,
+  some characters are represented by two code units.
+  
+  If you're testing for three apple emojis and use the
+  precise operator ({3}), by default, it will apply to only 
+  to the last code unit, and that is not what we want.
+
+  To solve for this, add the u option to the regular expression.
+  This stands for unicode, and will adjust the behavior of the
+  regular expression to work correctly.
+*/
+
+{
+  let threeApplesRegexWrong = /🍎{3}/;
+  let threeApples = '🍎🍎🍎';
+  threeApplesRegexWrong.test(threeApples); //false
+  let threeApplesRegexCorrect = /🍎{3}/u;
+  threeApplesRegexCorrect.test(threeApples); //true
+}
+
+/*
+  \p{key=val}
+
+  This is the property special charcter. It will match
+  based on whether a given character has a property
+  assigned to it. An example of a key value pair would be 
+  {Script=Greek}
+*/
