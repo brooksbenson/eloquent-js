@@ -8,4 +8,4 @@ let apostrophe = /\w'\w/;
 let singleQuote = /(^|\W)'|'(\W|$)/g;
 
 let text = "'I'm the cook,' he said, 'it's my job.'";
-console.log(text.replace(singleQuote, '$1"$2'));
+text.replace(singleQuote, '$1"$2'); // "I'm the cook," he said, "it's my job."

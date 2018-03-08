@@ -38,4 +38,4 @@ The +, *, ?, and {} operators are greedy. This term means they will match as man
 
 ## Unicode Option
 
-JavaScript regular expressions work based on code units, and some characters are represented by two code units, like emojis. To get the the regular expression to behave as expected for characters that use to code units, add the unicode option (/u).
+JavaScript regular expressions work based on code units, and some characters are represented by two code units, like emojis. To get the the regular expression to behave as expected for characters that use two code units, add the unicode option (/u).
