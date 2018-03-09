@@ -10,7 +10,7 @@ Systems that are built without structure in mind are often called "big balls of 
 
 A module is a piece of program that declares its dependencies (what it relies on) and defines an interface (for other modules to interact with). A system built with modules can be thought of like a lego block structure because the relationships between each piece can be easily picked out.
 
-Modules are handy because they can be used to give structure to larger programs, can be used in different programs, and they don't pollute the global namespace.
+Modules are handy because: they give structure to larger programs, can be used in different programs, and don't pollute the global namespace.
 
 ## Module Design
 

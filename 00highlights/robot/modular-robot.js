@@ -1,7 +1,3 @@
-/*
-  Rewrite the below project as a modular program.
-*/
-
 const utils = function() {
   const randomPick = arr => arr[Math.floor(Math.random() * arr.length)];
 
