@@ -1,5 +1,6 @@
 /*
-  Rewrite the below project as a modular program.
+  Rewrite the robot project from chapter 7 as a modular
+  program.
 */
 
 const utils = function() {
@@ -61,28 +62,30 @@ const data = function() {
 
 const simulator = function() {
   const {randomPick} = utils;
-  const {roadGraph} = data;
+  // const {roadGraph} = data;
 
   class VillageState {
-    constructor(place, parcels) {
+    constructor(place, parcels, graph) {
       this.place = place;
       this.parcels = parcels;
+      this.graph = graph;
     }
 
     move(destination) {
-      if (!roadGraph[this.place].includes(destination)) {
+      if (!this.graph[this.place].includes(destination)) {
         return this;
       } 
-      let parcels = this.parcels.map(p => {
-        if (this.place != p.place) return p; 
-        return {place: destination, address: p.address};
-      }).filter(p => p.place != p.address);
-      return new VillageState(destination, parcels);
+      let parcels = this.parcels.map(p => (
+        this.place != p.place
+        ? p
+        : {place: destination, address: p.address}
+      )).filter(p => p.place != p.address);
+      return new VillageState(destination, parcels, this.graph);
     }
   }
 
-  VillageState.randomInit = function(parcelCount = 5) {
-    let parcels = [], places = Object.keys(roadGraph);
+  VillageState.randomInit = function(graph, parcelCount = 5) {
+    let parcels = [], places = Object.keys(graph);
     for (let i = 0; i < parcelCount; i++) {
       let address = randomPick(places);
       let place;
@@ -91,7 +94,7 @@ const simulator = function() {
       } while (place == address);
       parcels.push({place, address});
     }
-    return new VillageState("Post Office", parcels);
+    return new VillageState("Post Office", parcels, graph);
   };
  
   function runRobot(state, robot, memory) {
@@ -111,13 +114,12 @@ const simulator = function() {
 
 const robots = function() {
   const {randomPick, findRoute} = utils;
-  const {roadGraph} = data;
 
-  function randomRobot(state) {
-    return {direction: randomPick(roadGraph[state.place])};
+  function randomRobot({graph, place}) {
+    return {direction: randomPick(graph[place])};
   }
 
-  function routeRobot(state, memory) {
+  function routeRobot(_, memory) {
     if (memory.length === 0) memory = mailRoute;
     return {
       direction: memory[0],
@@ -125,22 +127,22 @@ const robots = function() {
     }
   }
 
-  function goalOrientedRobot({place, parcels}, route) {
+  function goalOrientedRobot({place, parcels, graph}, route) {
     if (route.length === 0) {
       let parcel = parcels[0];
       route = parcel.place != place
-        ? findRoute(roadGraph, place, parcel.place)
-        : findRoute(roadGraph, place, parcel.address);
+        ? findRoute(graph, place, parcel.place)
+        : findRoute(graph, place, parcel.address);
     }
     return {direction: route[0], memory: route.slice(1)};
   }
 
-  function customRobot({place, parcels}, route) {
+  function customRobot({place, parcels, graph}, route) {
     if (route.length === 0) {
       let routes = parcels.map(p => (
         p.place == place
-          ? findRoute(roadGraph, place, p.address)
-          : findRoute(roadGraph, place, p.place)
+          ? findRoute(graph, place, p.address)
+          : findRoute(graph, place, p.place)
       ));
       route = routes.reduce((shortest, current) => (
         shortest.length < current.length
@@ -156,11 +158,12 @@ const robots = function() {
 
 const testing = function() {
   const {VillageState, runRobot} = simulator;
+  const {roadGraph} = data;
 
   function testRobot(robot, memory, iterations = 100, state) {
     let totalTurns = 0;
     for (let i = 0; i < iterations; i++) {
-      totalTurns += runRobot(VillageState.randomInit(), robot, memory);
+      totalTurns += runRobot(VillageState.randomInit(roadGraph), robot, memory);
     }
     return totalTurns / iterations;
   }
