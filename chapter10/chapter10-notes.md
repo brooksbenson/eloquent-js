@@ -10,7 +10,21 @@ Systems that are built without structure in mind are often called "big balls of 
 
 A module is a piece of program that declares its dependencies (what it relies on) and defines an interface (for other modules to interact with). A system built with modules can be thought of like a lego block structure because the relationships between each piece can be easily picked out.
 
-Modules in are handy because they can be used in many different programs and they don't pollute the global namespace.
+Modules are handy because they can be used to give structure to larger programs, can be used in different programs, and they don't pollute the global namespace.
+
+## Module Design
+
+### Composability
+
+Composability refers to how well a module can be composed with other modules. An example of a module that doesn't follow this principle is one that insists on reading some data from a *specific* source rather than a more *composable* source. If a module asks for some data from the file system and is running on the browser, then you won't be able to access the file system. A more composable module would be one that works with a plain JavaScript value, or something along those line.
+
+### Ease of Use
+
+Ease of use refers to how easily a modules interface is to work with.
+
+When it is possible to define a function as an interface, use a function. Instead of having to go through the ritual of creating an object and then storing the results of a module call within it and then using specialized methods to get at the results, it's better to just call a function for its return value and leave it at that. Using stateful objects can lead to unnecessary interdependencies. 
+
+When deciding about the data structures a module should accept, take a look around and see what data structures other modules are using. This creates a nice level of consistency for a modules users.
 
 ### Improvised Modules
 
@@ -20,7 +34,7 @@ This style of module provides isolation but does not declare dependencies, which
 
 ### Common JS
 
-The main concept in a Common JS module system is a function called *require*. The require function takes the name of a module and returns its interface. To accomplish this, the module needs to call require to access its own dependencies, then it returns an interface in an object bound to exports.
+The main concept in a Common JS module system is the *require* function. The require function takes the name of a module and returns its interface. To accomplish this, the module needs to call require to access its own dependencies, then it returns an interface in an object bound to exports. Along the way, the require function is caching modules that have already been required, so if a module has already been loaded, the module doing to requiring pulls from the cache rather than reloading it.
 
 ### ECMAScript Modules
 
@@ -40,4 +54,12 @@ Packages are chunks of code that can be distributed from one place. Any update t
 
 NPM is an infastructure that serves as a registry for packages and also a program that help you install and manage them. Having quality packages available on NPM is extremely valuable because it allows us to avoid rewriting a program that 100 people have wrote before us, and often these packages have been thoroughly tested and validated.
 
-Packages available on NPM are each licensed. It is important to be aware of the package license and what it means.
+Each package on NPM has a license, and it is important to be aware of the package license and what it means.
+
+## Building and Bundling
+
+*Compiling* is the process of taking a dialect of JavaScript code and translating into a version of JavaScript that can be ran on multiple platforms.
+
+*Bundling* is the process of taking all the files that make up a JavaScript program and rolling them into one big file.
+
+*Minifying* is the process of taking a JavaScript program and making it as small as possible by removing whitespace, comments, renaming variables, and rewriting code with equivelant code that takes up less space.

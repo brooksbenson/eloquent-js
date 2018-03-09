@@ -10,4 +10,3 @@ function require(name) {
   }
   return require.cache[name].exports;
 }
-
