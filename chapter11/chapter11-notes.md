@@ -1,0 +1,3 @@
+# Asynchronous Programming
+
+The central part of the computer, the part that carries out the individual steps that make up our programs, is called the processor. Some programs are written in way that will keep the processor busy until they are completed, and the speed at which a program finishes is almost entirely dependent on the speed of the processor. Some programs are written to communicate with things outside of the processor, like the hard disk or some other computer. 
