@@ -4,22 +4,24 @@ The central part of the computer, the part that carries out the individual steps
 
 ## Synchronous Programming Model
 
-A synchronous programming model is one where things happen one at a time. When a function executes a long running process, the program halts at that point and waits for the function to return.
+A synchronous model is where things happen one at a time. When a function executes a long running process the program stops until the function returns.
 
 ### Threading
 
-If a program makes two or more network requests, threading is a sychronous solution for reducing the programs execution time lower than the sum total of each of the requests run times. It is done by interweaving another program that makes the second request into the original program. This is made possible by the fact that most modern computers have multiple processors, allowing the interweaved program to execute the request in isolation. When the request made by each program is done, the results are sychronized in the original program.
+Threading is when a program delegates work to other programs; it is made possible by computers that have multiple processors.
 
 ## Asynchronous Programming Model
 
-An asynchronous programming model is one that allows multiple things to happen at one time. When a function executes a long running request, the processor can carry out other parts of the program while the request wraps up, and when it does, the program is built to handle it.
+An asynchronous model is single threaded and can do multiple things at the same time. It is able to execute a long running process while control continues to move through the program, and when the process is finished, control will move to the part of the program that handles its results.
 
 ### Callbacks
 
-A callback is a function that is passed as an argument to a function that performs a slow process and is executed when that process is finished.
+A callback is a HOF that gets executed by the function it is passed to. In the context of asynchronous programming, it gets executed after some long running process as a way to handle the processes results.
 
-### Promises
+When multiple asynchronous actions take place in a row, the callback model gets hectic. This is because a callback that handles and passes some results of an asynchronous action to another asychronous action nests that second call inside it, and that second call requires another callback to handle its results. This process can carry on ad infinitum, creating what is called *callback hell*.
 
-It is easier to denote abstract principles as actual explicit values. Promises are values that denote piece of asynchronous code, and are designed to execute pieces of code once an asynchronous action has been completed. 
+### setTimeout
 
-Asynchronous actions represented by promises are concluded by a call to either the resolving or rejecting functions, both of which are passed to the callback function that is passed to the promise. In short, promises either resolve or reject.
+setTimeout is a global binding available in both Node.js and browsers. It accepts a callback as its first argument and the number of milliseconds to wait before executing that function.
+
+Rarely does a program *need* to wait unless it is updating an animation or checking if something is taking longer than a given amount of time.
