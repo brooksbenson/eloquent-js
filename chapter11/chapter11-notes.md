@@ -1,6 +1,6 @@
 # Asynchronous Programming
 
-The central part of the computer, the part that carries out the individual steps that make up our programs, is called the processor. Some programs are written in way that will keep the processor busy until they are completed, and the speed at which a program finishes is almost entirely dependent on the speed of the processor. Some programs are written to interact with things outside of the processor, like the hard disk or some other computer.
+The processor of a computer is the thing that carries out the individual steps that make up programs. The speed that our programs finish executing is dependent on the processor and the types of things that our programs do (some things take much longer than others).
 
 ## Synchronous Programming Model
 
@@ -16,12 +16,14 @@ An asynchronous model is single threaded and can do multiple things at the same 
 
 ### Callbacks
 
-A callback is a HOF that gets executed by the function it is passed to. In the context of asynchronous programming, it gets executed after some long running process as a way to handle the processes results.
+A callback is an HOF that gets executed by the function it is passed to. In the context of asynchronous programming, it gets executed after some long running process as a way to handle the processes results.
 
-When multiple asynchronous actions take place in a row, the callback model gets hectic. This is because a callback that handles and passes some results of an asynchronous action to another asychronous action nests that second call inside it, and that second call requires another callback to handle its results. This process can carry on ad infinitum, creating what is called *callback hell*.
+When multiple asynchronous actions take place synchronously, the callback model gets hectic. This is because every asynchronous action in the callback model requires a callback, and when asychronous actions get nested within callbacks high levels of indentation are the result. This is a pain on the eyes, and is referred to by some people as *callback hell*.
 
 ### setTimeout
 
-setTimeout is a global binding available in both Node.js and browsers. It accepts a callback as its first argument and the number of milliseconds to wait before executing that function.
+setTimeout is a global binding available in both Node.js and browsers. It is a function that  accepts a callback as its first argument and the number of milliseconds to wait before executing the callback as its second.
 
-Rarely does a program *need* to wait unless it is updating an animation or checking if something is taking longer than a given amount of time.
+A program rarely needs to wait unless it is updating an animation or checking to see if an asychronous action has been completed.
+
+### Promises

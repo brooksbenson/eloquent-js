@@ -1,5 +1,5 @@
 let sym = new Symbol('sym');
-sym == Symbol('sym'); //false
+sym == new Symbol('sym'); //false
 let obj = {
   [sym]: 'sym'
 };
