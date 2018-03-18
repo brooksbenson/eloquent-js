@@ -27,3 +27,5 @@ setTimeout is a global binding available in both Node.js and browsers. It is a f
 A program rarely needs to wait unless it is updating an animation or checking to see if an asychronous action has been completed.
 
 ### Promises
+
+Promises are instances of the Promise class and are used to handle asynchronous actions. The big thing to note about promises is that they will either *resolve* or *reject*. When a promise resolves, it makes the results of an asynchronous action available to all the code that needs it, and when a promise rejects, it denotes there there was an issue in the asynchronous computation.
