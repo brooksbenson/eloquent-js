@@ -23,7 +23,7 @@
 const {bigOak} = require('./crow-tech');
 bigOak.readStorage('food caches', ([firstCache]) => {
   bigOak.readStorage(firstCache, info => {
-    console.log(26, info);
+    // console.log(26, info);
   });
 });
 
@@ -62,9 +62,9 @@ bigOak.send('Cow Pasture', 'note', 'caw loudly at 7', () => {
 });
 
 /*
-  Sometimes, new types of requests need to be introduced
-  to the network. The crow-tech module provides a function
-  for defining new requests types and their handlers.
+  Sometimes, new types of requests need to be defined in
+  the network. The crow-tech module provides a function for
+  defining new types of requests and how they are handled.
 
   The handler is passed the following arguments, respectively:
   nest (obj | the receiving nest), content (any | the value from the sender),
@@ -87,9 +87,8 @@ defineRequestType('alert', (nest, content, source, done) => {
 });
 
 /*
-  As it turns out, sometimes the communication requests
-  being sent from nest to nest fail. This can be due
-  to some kind of interuption in the transmission.
+  As it turns out, communications across the network
+  can fail. This can be due to, for instance,
   
   To solve this, we are going to set up a function that
   attempts a request a few times before terminating. The

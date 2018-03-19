@@ -1,14 +1,15 @@
 # Asynchronous Programming
 
-The processor of a computer is the thing that carries out the individual steps that make up programs. The speed that our programs finish executing is dependent on the processor and the types of things that our programs do (some things take much longer than others).
+The processor of a computer is the thing that carries out the individual steps that make up programs. The speed of a program is dependent on the processor and the types of things that the
+program does.
 
 ## Synchronous Programming Model
 
-A synchronous model is where things happen one at a time. When a function executes a long running process the program stops until the function returns.
+A synchronous model is where things happen one after the other. When a function executes a long running process the program stops until the function returns.
 
 ### Threading
 
-Threading is when a program delegates work to other programs; it is made possible by computers that have multiple processors.
+Threading is when a program delegates work to other programs; creating two or more flows of control that eventually sychronize.
 
 ## Asynchronous Programming Model
 
@@ -16,9 +17,9 @@ An asynchronous model is single threaded and can do multiple things at the same 
 
 ### Callbacks
 
-A callback is an HOF that gets executed by the function it is passed to. In the context of asynchronous programming, it gets executed after some long running process as a way to handle the processes results.
+A callback is a HOF that gets executed by the function it is passed to. In the context of asynchronous programming, it gets executed after some long running process as a way to handle the processes results.
 
-When multiple asynchronous actions take place synchronously, the callback model gets hectic. This is because every asynchronous action in the callback model requires a callback, and when asychronous actions get nested within callbacks high levels of indentation are the result. This is a pain on the eyes, and is referred to by some people as *callback hell*.
+When multiple asynchronous actions take place synchronously one after the other, the callback model gets hectic. This is because every asynchronous action in the callback model requires a callback, and when asychronous actions get nested within callbacks high levels of indentation are the result. This is a pain on the eyes, and is referred to by some people as *callback hell*.
 
 ### setTimeout
 
