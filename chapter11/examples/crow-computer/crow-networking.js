@@ -190,3 +190,111 @@ requestType('gossip', (nest, message, source) => {
 });
 
 sendGossip(bigOak, 'Kids with airgun in park');
+
+/*
+  When a node wants to talk to a single other node,
+  flooding is not a very efficient approach. An
+  alternative way is to setup a way for a message
+  to move from node to node until it reaches its
+  destination.
+
+  If a node wants to communicate with a far away node,
+  it needs to know which of its neighbors gets it closer.
+  This requires a knowledge of the layout of the network.
+
+  Since each node only knows about its direct neighbors,
+  we aren't able to compute a route. We need spread the
+  layout information to all nests, preferable in a way
+  that allows it to change over time when nests are 
+  abandoned or new nests are built.
+*/
+
+requestType('connections', (nest, {name, neighbors}, source) => {
+  let {connections} = nest.state;
+  if (JSON.stringify(connections.get(name)) ==
+      JSON.stringify(neighbors)) return;
+
+  connections.set(name, neighbors);
+  broadcastConnections(nest, name, source);
+});
+
+function broadcastConnections(nest, name, exceptFor = null) {
+  for (let neighbor of nest.neighbors) {
+    if (neighbor == exceptFor) continue;
+    request(nest, neighbor, 'connections', {
+      name,
+      neighbors: nest.state.connections.get(name)
+    });
+  }
+}
+
+everywhere(nest => {
+  nest.state.connections = new Map;
+  nest.state.connections.set(nest.name, nest.neighbors);
+  broadcastConnections(nest, nest.name);
+});
+
+/*
+  The functionality above provides the network layout
+  to every single node in the network as a graph, and 
+  graphs can be used to create routes. If we have a
+  route towards a messages destination, we know in
+  which direction to send it.
+*/
+
+function findRoute(a, b, connections) {
+  let work = [{at: a, via: null}];
+  for (let i = 0; i < work.length; i++) {
+    let {at, via} = work[i];
+    for (let next of connections.get(at) || []) {
+      if (next == b) return via;
+      if (!work.some(w => w.at != at)) {
+        work.push({at: next, via: via || next});
+      }
+    }
+  }
+  return null;
+}
+
+/*
+  The findRoute function takes node a, node b,
+  and the network graph, then returns the first 
+  route it identifies from point a to point b.
+  
+  To do this, it keeps a work list where each
+  element denotes a node to explore. The function
+  kicks off by looking at the nodes available from
+  the starting point, then pushes the node into the
+  work load if it is not already present.
+
+  When a node in the work list is examined and 
+  our function identifies that it is connected
+  to node b, our destination, then it returns
+  the route that is associated with that node
+  in the work list.
+*/
+
+/*
+  We can not build a function that sends messages
+  from one node to another without using flooding.
+  If the message is addressed to a direct neighbor
+  it is delivered as usual. If not, it is packaged
+  in an object and sent to the neighbor closest to
+  the recipient using the "route" request type, which
+  will cause the neighbor to repeat the same behavior.
+*/
+
+function routeRequest(nest, target, type, content) {
+  if (nest.neighbors.includes(target)) {
+    return request(nest, target, type, content);
+  }
+  let via = findRoute(nest.name, target, nest.state.connections);
+  if (!via) throw new Error(`No route to ${target}`);
+  return request(nest, via, 'route', {
+    target, type, content
+  });
+}
+
+requestType('route', (nest, {target, type, content}) => {
+  return routeRequest(nest.name, target, type, content);
+})
