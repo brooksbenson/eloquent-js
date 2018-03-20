@@ -5,7 +5,7 @@ program does.
 
 ## Synchronous Programming Model
 
-A synchronous model is where things happen one after the other. When a function executes a long running process the program stops until the function returns.
+A synchronous model is where things happen one after the other. When a function executes a long running process the program stops until the function returns. This behavior is also called *blocking*.
 
 ### Threading
 
@@ -14,6 +14,10 @@ Threading is when a program delegates work to other programs; creating two or mo
 ## Asynchronous Programming Model
 
 An asynchronous model is single threaded and can do multiple things at the same time. It is able to execute a long running process while control continues to move through the program, and when the process is finished, control will move to the part of the program that handles its results.
+
+### The Event Loop
+
+Asychronous behavior happens on its own empty function call stack called the queue, and JavaScript can only run along a single thread. Control moves through the program adding functions to the call stack until it is empty. At that point, the event loop begins executing the callbacks that were added to the queue by moving them onto the call stack. The end.
 
 ### Callbacks
 
@@ -30,3 +34,15 @@ A program rarely needs to wait unless it is updating an animation or checking to
 ### Promises
 
 Promises are instances of the Promise class and are used to handle asynchronous actions. The big thing to note about promises is that they will either *resolve* or *reject*. When a promise resolves, it makes the results of an asynchronous action available to all the code that needs it, and when a promise rejects, it denotes there there was an issue in the asynchronous computation.
+
+### Async functions
+
+An async function is a function that implicitly returns a promise. Inside its body it can pause execution by using the keyword *await* in front of an asynchronous action, and will resume once the expression prefixed with await resolves with a value. The asynchronous function will resolve when the return expression is reached.
+
+### Generators
+
+The ability for functions to be paused and then resumed is not exclusive to async functions. Defining a function with an asterisk in front of it (function*) defines a generator. Generators return iterators. When a generator is first called it pauses at the start, and everytime the next method is called on the iterator the function runs until it hits a yield statement, which at that point it causes the yield value to become part of the iterators state, which the iterator remembers for when the next method is called again. The return expression inside the generator concludes the iterator.
+
+## Network Flooding
+
+Network flooding is a type of communication for broadcasting a message to a whole network. When a node receives a request, it will forward along that request to its neighbors, and those neighbors will forward the request to their neighbors, until the whole netword has received the request.

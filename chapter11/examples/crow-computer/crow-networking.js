@@ -297,4 +297,67 @@ function routeRequest(nest, target, type, content) {
 
 requestType('route', (nest, {target, type, content}) => {
   return routeRequest(nest.name, target, type, content);
-})
+});
+
+/*
+  To protect important information, crows will duplicate
+  the information across nodes. That way, if one node is
+  destroyed, the information will persist. When a node
+  needs a piece of information that it doesn't store
+  locally, it can consult other nodes until it finds
+  the piece of information it is looking for.
+*/
+
+requestType('storage', (nest, name) => storage(nest, name));
+
+function findInStorage(nest, name) {
+  return storage(nest, name).then(found => {
+    if (found != null) return found;
+    else return findInRemoteStorage(nest, name);
+  });
+}
+
+function network(nest) {
+  return Array.from(nest.state.connections.keys());
+}
+
+function findInRemoteStorage(nest, name) {
+  let sources = network(nest).filter(n => n != nest.name);
+  function next() {
+    if (sources.length == 0) {
+      return Promise.reject(new Error('Not found'));
+    } else {
+      let source = sources[~~(Math.random() * sources.length)];
+      sources = sources.filter(s => s != source);
+      return routeRequest(nest, source, 'storage', name)
+        .then(value => value != null ? value : next(), next);
+    }
+  }
+  return next();
+}
+
+/*
+  A function prefixed with the *async* keyword implicitly
+  returns a promise, which resolves when the function
+  returns something. The keyword *await* can be prefixed
+  in front of a promise within an async functions body
+  to pause execution at that place and then resume once
+  that promise resolves. This syntax allows the creation
+  of asynchronous code that looks synchronous
+*/
+
+async function findInStorage2(nest, name) {
+  let local = await storage(nest, name);
+  if (local != null) return local;
+
+  let sources = network(nest).filter(n => n != nest.name);
+  while (sources.length > 0) {
+    let source = sources[~~(Math.random() * sources.length)];
+    sources = sources.filter(s => s != source);
+    try {
+      let found = await routeRequest(nest, source, 'storage', name);
+      if (found != null) return found;
+    } catch (_) {}
+  }
+  throw new Error('Not found');
+}
