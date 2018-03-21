@@ -6,7 +6,7 @@
 
   The computer is composed of bulbous clay structures
   that serve as points that work with data. These
-  points are networked to where some have clear lines
+  nodes are networked to where some have clear lines
   of sight with others, and through these lines of sight
   they communicate by relecting light.
 
@@ -23,7 +23,7 @@
 const {bigOak} = require('./crow-tech');
 bigOak.readStorage('food caches', ([firstCache]) => {
   bigOak.readStorage(firstCache, info => {
-    // console.log(26, info);
+    console.log(info);
   });
 });
 
@@ -284,6 +284,10 @@ function findRoute(a, b, connections) {
   will cause the neighbor to repeat the same behavior.
 */
 
+requestType('route', (nest, {target, type, content}) => {
+  return routeRequest(nest.name, target, type, content);
+});
+
 function routeRequest(nest, target, type, content) {
   if (nest.neighbors.includes(target)) {
     return request(nest, target, type, content);
@@ -294,10 +298,6 @@ function routeRequest(nest, target, type, content) {
     target, type, content
   });
 }
-
-requestType('route', (nest, {target, type, content}) => {
-  return routeRequest(nest.name, target, type, content);
-});
 
 /*
   To protect important information, crows will duplicate
@@ -360,4 +360,39 @@ async function findInStorage2(nest, name) {
     } catch (_) {}
   }
   throw new Error('Not found');
+}
+
+/*
+  When a program runs synchronously there are no
+  state changes other than those that the program
+  makes itself. Asychronous program may have gaps
+  in their execution where other code can run.
+
+  One of our crows hobbies is to count the amount
+  of chicks that hatch in the village every year.
+  Nodes (nests) store this count in their storage bulbs.
+  The code below tries to enumerate the counts from
+  each node for a given year.
+*/
+
+const anyStorage = (nest, source, name) => (
+  nest.name == source
+    ? storage(nest, name)
+    : routeRequest(nest, source, 'storage', name)
+);
+
+async function chicks(nest, year) {
+  let list = '';
+  await Promise.all(network(nest).map(async name => {
+    list += `${name}: ${
+      await anyStorage(nest, name, `chicks in ${year}`)
+    }`;
+  }));
+}
+
+async function chicks2(nest, year) {
+  let lines = network(nest).map(async name => (
+    `${name}: ${await anyStorage(nest, name, `chicks in ${year}`)}`
+  ));
+  return (await Promise.all(lines)).join('\n');
 }
