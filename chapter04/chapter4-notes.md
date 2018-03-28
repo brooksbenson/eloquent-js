@@ -6,11 +6,11 @@ A data structure is the way a collection of values is stored. A good data struct
 
 Objects are values used to define arbitrary collections of properties.
 
-### Properties
+## Properties
 
 Every value in JavaScript, except null & undefined, have properties. Properties are binded to values.
 
-### Methods
+## Methods
 
 A method is a property that is binded to a function value.
 
@@ -18,14 +18,13 @@ A method is a property that is binded to a function value.
 
 An array is a value for storing sequences of other values.
 
-### Stacks
+## Stacks
 
 A stack is a data structure that allows a program to push values onto it and pop values off. The terms push and pop are popular when refering to adding or removing from a stack.
 
-### Indexes
+## Indexes
 
 Arrays are organized based on an indexing system. Every value in an array has an index, which can be thought of as an address for that value. The first value in an array is found at index 0, and every preceding value can be found at the the next index, which increments by 1. An index is equal to the amount of values to skip in an array to reach that index. You don't have to skip any values to reach the first value in an array, so its index is 0.
-
 
 ## delete
 
@@ -33,13 +32,13 @@ A unary operator used to remove a property from an object.
 
 ## in
 
-A binary operator whose operands consist of a string and an object, and whose result yields a boolean stating whether or not a property by that name exists in the object or its prototype(s).
+A binary operator whose operands consist of a string and an object and whose result yields a boolean stating whether or not a property by that name exists in the object or its prototype(s)
 
-### Object.keys
+## Object.keys
 
 A method of the Object value that takes an object as an argument and returns an array storing the names of every property on the provided object.
 
-### Object.assign
+## Object.assign
 
 A method of the Object value that takes an object as its first and second argument, then defines the properties of the second argument on the first.
 
@@ -51,9 +50,9 @@ If a binding is binded to an object value, and that object value changes, the bi
 
 ## Serialization
 
-Serialization is the process of translating data structures or objects into a format that can be stored, or transmitted, and then reconstructed later. When a serialized product is reread on another machine, it can be used to create a semantically identical clone of the original object.
+Serialization is the process of translating data structures or objects into a format that can be stored, or transmitted, and then reconstructed later.
 
-### JSON
+## JSON
 
 A popular serialization format is called JSON, which stands for JavaScript Object Notation. JSON is widely used as a data storage and communication format on the web, even in languages other than JavaScript.
 

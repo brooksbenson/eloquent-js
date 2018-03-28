@@ -1,6 +1,6 @@
 # Functions
 
-A function is a piece of program wrapped in a value and are awesome because they create a separation of concerns. They are a value just like any other value.
+A function is a value type and a piece of program that can be executed.
 
 ## function expressions
 
@@ -8,7 +8,7 @@ Function expressions are indicated by either a *function* keyword or a fatty arr
 
 ## Parameters
 
-Function parameters behave like regular bindings. Their values are assigned by *arguments*. 
+Function parameters are regular bindings whoes values are assigned by *arguments*. 
 
 ## Arguments
 
@@ -16,7 +16,7 @@ Arguments are the *values* that are passed to functions upon invocation.
 
 ### Default arguments
 
-It is possible to git parameters default values. These values will be used if the parameter does not receive corresponding arguments.
+It is possible to define default values for parameters. These values will be used if the parameter does not receive corresponding arguments.
 
 ## Body
 
@@ -24,14 +24,11 @@ The body of a function is the statements that are executed when a function is in
 
 ### return
 
-A return statement determines the value that a function returns. When control comes
-across such a statement, it immediately jumps out of the function body and gives
-the return value to the code that called the function. A return keyword without a
-following expression returns undefined.
+A return statement determines the value that a function returns. When control comes across such a statement, it immediately jumps out of the function body and gives the return value to the code that called the function. A return keyword without a following expression returns undefined.
 
 ## Scope
 
-Scope refers to the bindings that are visible at any point in a program. Bindings that are defined as parameters or within a function body cannot be accessed by code outside of the function, so function expressions are said to create their own *scope*.
+Scope refers to the bindings that are visible at any point in a program. Parameters or bindings defined within a function body cannot be accessed by code outside of the function, so function expressions are said to create their own *scope*.
 
 ### Block scope
 
@@ -50,8 +47,7 @@ A closure is a pattern where a function returned by another function remembers t
 
 ## Recursion
 
-Recursion is a control flow where a function calls itself to reach a solution. Recursion
-only works if the call stack doesn't exceed its cap.
+Recursion is a control flow where a function calls itself to reach a solution. Recursion only works if the call stack doesn't exceed its cap.
 
 ## Growing Functions
 

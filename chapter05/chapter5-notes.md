@@ -1,8 +1,6 @@
 # Higher-order Functions
 
-## Abstractions
-
-Abstraction hides detail, making programs simpler. Abstractions can represent actions, and actions can be described by functions.
+Abstraction hides detail making programs simpler.
 
 ### Higher-order Functions
 

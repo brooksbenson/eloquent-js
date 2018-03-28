@@ -12,4 +12,4 @@ A function that is passed to a function that makes an asynchronous action and is
 
 ## Promises
 
-Promises are asynchronous actions that may or may not produce a value and provide an interface for handling both cases.
+Promises are asynchronous actions that may or may not produce a value. They expose an interface for handling when the asynchronous action produces a value  and for when an asynchronous action fails to produce a value.

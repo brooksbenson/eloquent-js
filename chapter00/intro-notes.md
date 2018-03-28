@@ -2,13 +2,13 @@
 
 ## Programming Language
 
-A programming language is a language used to instruct computers, and differs from that of a graphical interface, which is also used to instruct computers but is much more limited.
+A programming language is a syntax used to instruct computers, and differs from that of a graphical interface, which is also used to instruct computers but is much more limited.
 
-### JavaScript
+## JavaScript
 
-JavaScript is a programming language that can be used in the web browser as well as in environments such as Node.js. was introduced in 1995 as a way to add programs to the Netscape Navigator browser.
+JavaScript is a programming language that can be used in the web browser as well as in environments such as Node.js. It was introduced in 1995 as a way to add programs to the Netscape Navigator browser.
 
-### ECMAScript Standard
+## ECMAScript Standard
 
 A standard that states how JavaScript should work.
 
