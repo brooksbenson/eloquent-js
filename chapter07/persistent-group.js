@@ -1,5 +1,5 @@
 /*
-  Persisten Group
+  Persistent Group
 
   Write a new class called PGroup that stores a set of values.
   It should have the methods add, delete, and has.

@@ -4,7 +4,7 @@ Object-oriented programming helped shape the design of JavaScript.
 
 ## Encapsulation
 
-The core idea of object-oriented programming is breaking a program up into smaller pieces that manage themselves. This way, knowledge about how a piece works is kept local to that piece, and if a piece changes, only the code involved with that piece needs to be updated.
+The core idea of object-oriented programming is the breaking program into smaller pieces that manage themselves. This way, knowledge about how a piece works is kept local to that piece, and if a piece changes, only the code involved with that piece needs to be updated.
 
 ## Interfaces
 
@@ -12,7 +12,7 @@ Different pieces of a program interact with each other through interfaces. An in
 
 ## this
 
-The *this* binding is available in every part of a JavaScript program, and its value changes based on where control is in the program. When it is referenced in a normal function call it is binded to the global context, and when it is referred to within a method it is binded to the object that the method is apart of.
+The *this* binding is available in every part of a JavaScript program, and its value changes based on where control is in the program. When it is referenced in a normal function call it is binder to the global context, and when it is referred to within a method it is binded to the object that the method is apart of.
 
 ## prototypes
 
@@ -42,11 +42,13 @@ Polymorphism is a programming style that works with values that support a certai
 
 ### Symbols
 
+When using interfaces you might run into the problem where multiple data types use the same interface, but each exhibits a different behavior. Therefore, our program is expecting a certain behavior from an interface but the interface doesn't actually work with that behavior. 
+
 Symbols are values that can serve as a key to an object interface and are created with the Symbol function. Symbols must be evaluated as expressions, requiring square bracket access syntax.
 
 Every value produced by Symbol invocation is unique even if provided the same inputs. Being usable as property names and being unique make symbols suitable for defining interfaces that can live peacefully alongside other arbitrary interface properties.
 
-### Iterator interface
+#### Iterator interface
 
 Objects provided to for/of loops are expected to be iterable, meaning they have a method named with the Symbol.iterator symbol. When called, that method should return an object that provides a second interface. This is the actual object that iterates. It should have a *next* method that returns the next result. That result should be an object with a value property, providing the next value, and a done property, which returns true if there is no more results and false if otherwise.
 
@@ -56,7 +58,7 @@ Objects can contain properties that look like non-method properties, but are in 
 
 By putting *set* or *get* in front of a property, the property will implement the getter function when the property is being looked up, or the setter function when the property is being manipulated.
 
-Static methods are method that are stored directly on a class rather than its prototype.
+Static methods are method that are stored in a class' constructor rather than its prototype.
 
 ## Inheritance
 

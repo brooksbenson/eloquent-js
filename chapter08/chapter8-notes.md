@@ -14,7 +14,7 @@ In strict mode, the this binding holds the value undefined in functions that are
 
 In short, putting "use strict" at the top of a program never hurts and may help in spotting a bug.
 
-### Gotcha on Constructors
+## Gotcha on Constructors
 
 The this binding in constructors that are called without the keyword new will refer to the global scope and *not* a new object instance, and this will cause the contructor to assign values in the global scope.
 
@@ -30,11 +30,11 @@ Another problem with types is the confusion that arises about what kind of value
 
 The JavaScript language all in all does not give us a lot of help with finding mistakes. To find them, we have to run the program and see if it does what we expect.
 
-### Automated Testing
+## Automated Testing
 
 Automated testing is the process of writing programs that test other programs. Our tests will run when the program being tested is changed, allowing us to evaluate whether our tested program does what we want it to.
 
-#### Test runners
+## Test runners
 
 Test runners help in the design of automated testing by providing a helpful framework for testing programs.
 
@@ -46,19 +46,19 @@ When a program has bugs, pause, then think about what could be causing the bugs.
 
 Error Propogation refers to errors arising in programs and how we design the program to deal with them.
 
-### Exception Handling
+## Exception Handling
 
 Exception handling returns control flow to a certain part of a program when a function cannot proceed normally. Exception handling is a pattern that makes it possible for code that runs into a problem to *throw* or *raise* an exception; the exception proceeds by unwinding the callstack and returning control flow to the part of the program that began the execution or to part of the program that *catches* exceptions.
 
-#### throw
+## throw
 
 The *throw* keyword is used to raise an exception.
 
-#### try-catch-finally block
+## try-catch-finally block
 
 The *try-catch-finally* block is used to handle exceptions. The try block is used to try some code out, and if it throws an exception, the catch block below it can use the exception and decide about it. The finally block can be used in replacement of or in addition to the catch block. It contains a block of code that will *always* run after the try block is finished executing.
 
-##### finally block gotcha
+### finally block gotcha
 
 If you use the finally block without a catch block, the code in the finally block will execute but the exception will keep unwinding the stack.
 

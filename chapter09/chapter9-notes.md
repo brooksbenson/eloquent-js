@@ -6,11 +6,11 @@ Regular expressions are a way to describe patterns in string data. They form a s
 
 A regular expression is a type of object that can be formed by the *RegExp* constructor or by writing a literal regex pattern and enclosing it with forward slashes.
 
-### Constructor Syntax
+## Constructor Syntax
 
 The RegExp constructor defines a string value as its parameter and uses it as the regular expression pattern. To include a backslash as part of the pattern, it needs to be preceded by another backslash, otherwise it will be ignored.
 
-### Literal Syntax
+## Literal Syntax
 
 Regular expression literals treat backslashes differently. 
 
@@ -20,19 +20,19 @@ Backslashes that aren't part of special character codes will be preserved rather
 
 Some characters have special meaning in regular expressions, and must be preceded by a backslash to be treated literally.
 
-## Matching Mechanics
+# Matching Mechanics
 
 Regex engines look for a match starting at the first character in a string then move on to the second, and so on. Where the engine is currently scanning is called the current position.
 
 When the current position matches the first part of the expression, the current position moves "down" the string, and the engine attempts to match the position against the following parts of the expression.
 
-### Backtracking
+## Backtracking
 
 If multiple choice patterns in a regex can match a part of a string, the engine will try all of them, starting with the first, then will *backtrack* the current position to where the choice pattern began, and will try another choice. This will make the process slower.
 
 Backtracking also occurs with the + and * operators. If a regex is written incorrectly, the + and * operators will try and consume a whole string, and by reaching the end, the engine recognizes there is still parts of the expression to check, then will backtrack the current position one character at a time, trying to match the rest of the expression.
 
-### Greed
+## Greed
 
 The +, *, ?, and {} operators are greedy. This term means they will match as many characters as possible before having to backtrack. This behavior can cause problems in our regex patterns. To avoid this, apply a zero or one operator (?) after any of them. This will cause the engine to match more only when the preceding pattern does not match the current position.
 

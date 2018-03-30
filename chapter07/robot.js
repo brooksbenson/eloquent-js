@@ -222,7 +222,7 @@ function findRoute(graph, a, b) {
 
 function goalOrientedRobot({place, parcels}, route) {
   if (route.length === 0) {
-    let parcel = parcels[0];
+    let [parcel] = parcels;
     route = parcel.place != place
       ? findRoute(roadGraph, place, parcel.place)
       : findRoute(roadGraph, place, parcel.address);
@@ -337,9 +337,9 @@ function customRobot({place, parcels}, route) {
         : findRoute(roadGraph, place, p.place)
     ));
     route = routes.reduce((shortest, current) => (
-      shortest.length < current.length
-        ? shortest
-        : current
+      current.length < shortest.length
+        ? current
+        : shortest
     ));
   }
   return {direction: route[0], memory: route.slice(1)};

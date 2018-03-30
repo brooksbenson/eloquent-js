@@ -10,7 +10,7 @@
   The date object is capable of taking 7 arguments:
   year, month, day, hour, minute, second, millisecond
 
-  If the data object receives one argument, then it
+  If the Date object receives one argument, then it
   interprets it as a time stamp and uses that to form
   a new date object.
 */

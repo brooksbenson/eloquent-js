@@ -26,17 +26,17 @@ When it is possible to define a function as an interface, use a function. Instea
 
 When deciding about the data structures a module should accept, take a look around and see what data structures other modules are using. This creates a nice level of consistency for a modules users.
 
-### Improvised Modules
+## Improvised Modules
 
 JavaScript functions can be used to create local scopes and to return an interface. The interface has access to the local scope even after it has been returned; an implementation of the closure pattern.
 
 This style of module provides isolation but does not declare dependencies, which is why it is now obsolete. To make module relationships part of the code, we'll have to take control of the actual loading of modules, and that requires being able to evaluate strings as code. JavaScript is capable of this.
 
-### Common JS
+## Common JS
 
 The main concept in a Common JS module system is the *require* function. The require function takes the name of a module and returns its interface. To accomplish this, the module needs to call require to access its own dependencies, then it returns an interface in an object bound to exports. Along the way, the require function is caching modules that have already been required, so if a module has already been loaded, the module doing to requiring pulls from the cache rather than reloading it.
 
-### ECMAScript Modules
+## ECMAScript Modules
 
 With ES Modules the idea of dependencies and interfaces remains the same. To declare a dependency from within a module, the keywords *import* and *from* are used, like so: import foo from bar. Exporting things is done in a similar fashion by using the *export* keyword, like so: export x. 
 
