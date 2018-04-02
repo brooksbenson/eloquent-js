@@ -1,7 +1,7 @@
 const logHelper = require('./logging-helper');
 
 /*
-  A function that is passed to a function that takes an
+  A function that is passed to a function that starts an
   asynchronous action and is used to handle the results
   of that asynchronous action is what is known as a
   callback.
@@ -32,9 +32,8 @@ oneSecond(); //1007
   bulb stores pieces of JSON-encoded data under
   names. A crow may store a list of places it has
   stored food under the name "food caches", and each
-  list item under "food caches" points to another
-  chunk of data in the storage bulb that explains
-  further about the food cache.
+  list item under "food caches" is a name that 
+  points to another chunk of data in the storage bulb.
 */
 
 const { bigOak } = require('./../crow-tech');
