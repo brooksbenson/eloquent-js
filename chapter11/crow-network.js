@@ -81,6 +81,7 @@ requestType('gossip', (nest, message, source) => {
 });
 
 
+//Creating and updating the state of nest connections per nest
 requestType('connections', (nest, {name, neighbors}, source) => {
   let {connections} = nest.state;
   if (JSON.stringify(connections.get(name)) == 
@@ -105,6 +106,7 @@ everywhere(nest => {
   broadcastConnections(nest, nest.name);
 });
 
+//sending requests to nests that aren't neighbors
 function findRoute(from, to, connections) {
   let work = [{at: from, via: null}];
   for (let i = 0; i < work.length; i++) {
@@ -131,4 +133,47 @@ function routeRequest(nest, target, type, content) {
 
 requestType('route', (nest, {target, type, content}) => {
   return routeRequest(nest, target, type, content);
-})
+});
+
+//reading data from other nests
+requestType('storage', (nest, name) => storage(nest, name));
+
+function findInStorage(nest, name) {
+  return storage(nest, name).then(found => {
+    if (found != null) return found;
+    else return findInRemoteStorage(nest, name);
+  });
+}
+
+function network(nest) {
+  return Array.from(nest.state.connections.keys());
+}
+
+function findInRemoteStorage(nest, name) {
+  let sources = network(nest).filter(n => n != nest.name);
+  function next() {
+    if (sources.length === 0) {
+      return Promise.reject(new Error('Not found'));
+    } else {
+      let source = sources.pop();
+      return routeRequest(nest, source, 'storage', name)
+        .then(value => value != null ? value : next());
+    }
+  }
+}
+
+//async/await version of findInStorage
+async function findInStorage(nest, name) {
+  let local = await storage(nest, name);
+  if (local != null) return local;
+
+  let sources = network(nest).filter(n => n != nest.name);
+  while (sources.length > 0) {
+    let source = sources.pop();
+    try {
+      let found = await routeRequest(nest, source, 'storage', name);
+      if (found != null) return found;
+    } catch (_) {}
+  }
+  throw new Error('not found');
+}
