@@ -10,6 +10,8 @@ An asynchronous programming model is single threaded but is still able to execut
 
 A function that is passed to a function that makes an asynchronous action and is used to handle the results of that asynchronous action is what is known as a callback. Doing multiple asynchronous actions in a row using callbacks creates high levels of indentation because the results from asynchronous actions keep getting passed to new asynchronous actions via callbacks, and each callback creates another level of indentation.
 
+Callbacks are not directly called by the code that scheduled them. When a callback is scheduled, the function that set it up will have returned and left the callstack by the time the callback is executed. Asynchronous behavior happens on an empty callstack, so if a scheduled callback raises an exception you'll need to use other means to handle it.
+
 ## Promises
 
-Promises are asynchronous actions that may or may not produce a value. They expose an interface for handling when the asynchronous action produces a value and for when an asynchronous action fails to produce a value.
+Promises are asynchronous actions that may or may not produce a value. They expose an interface for handling when the asynchronous action produces a value and for when an asynchronous action fails to produce a value or raises an exception.

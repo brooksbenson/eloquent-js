@@ -163,7 +163,7 @@ function findInRemoteStorage(nest, name) {
 }
 
 //async/await version of findInStorage
-async function findInStorage(nest, name) {
+async function findInStorage2(nest, name) {
   let local = await storage(nest, name);
   if (local != null) return local;
 
@@ -176,4 +176,30 @@ async function findInStorage(nest, name) {
     } catch (_) {}
   }
   throw new Error('not found');
+}
+
+// helper
+function anyStorage(nest, source, name) {
+  if (nest.name === source) return storage(nest, name);
+  else return routeRequest(nest, source, 'storage', name);
+}
+
+// broken function
+async function brokenChicks(nest, year) {
+  let list = '';
+  await Promise.all(network(nest).map(async name => {
+    // list value for every async action is ''
+    list += `${name}: ${
+      await anyStorage(nest, name, `chicks in year ${year}`)
+    }`;
+  }));
+  // returns list + the result of the *last* promise
+  return list;
+}
+
+async function chicks(nest, year) {
+  const lines = await Promise.all(network(nest).map(async name => {
+    return name + `: ${await anyStorage(nest, name, `chicks in ${year}`)}`;
+  }));
+  return lines.join('\n');
 }
