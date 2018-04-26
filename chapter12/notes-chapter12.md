@@ -13,4 +13,3 @@ Evaluating is the process of running a program. In the beginning, the program is
 ## Compilation
 
 Compilation is the process of taking a program and converting it to another format. The new format should allow the program to be run more efficiently. Whenever a program is converted to another format it can be thought of as compilation.
-
