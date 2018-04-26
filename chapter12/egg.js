@@ -61,6 +61,7 @@ function parseApply(expr, program) {
     if (program[0] == ',') {
       program = skipSpace(program.slice(1));
     } else if (program[0] != ')') {
+      console.log(expr);
       throw new SyntaxError('Expected "," or ")"');
     }
   }
@@ -75,6 +76,7 @@ function parse(program) {
   }
   return expr;
 }
+
 
 /*
   Eggelicious!
@@ -151,6 +153,7 @@ specialForms.define = (args, scope) => {
   return value;
 };
 
+
 // The Environment
 const topScope = Object.create(null);
 
@@ -169,10 +172,6 @@ topScope.print = value => {
 };
 
 
-// Running Egg programs
-function run(program) {
-  return evaluate(parse(program), Object.create(topScope));
-}
 
 run(`
 do(define(total, 0),
@@ -220,3 +219,43 @@ do(define(pow, fun(base, exp,
         *(base, pow(base, -(exp, 1)))))),
    print(pow(2, 10)))
 `); // 1024
+
+// Running Egg programs
+function run(program) {
+  return evaluate(parse(program), Object.create(topScope));
+}
+
+// Exercises
+
+/*
+  Add support for arrays in Egg by adding the following
+  3 functions to the top scope
+  ------------------------------------------------------
+
+  1. array(...values): to construct an array containing the
+    argument values.
+
+  2. length(array): to get an array's length
+
+  3. element(array, n): to fetch the nth element from an array
+*/
+
+topScope.array = function() {
+  return [...arguments];
+};
+
+topScope.length = function(array) {
+  return array.length;
+};
+
+topScope.element = function(array, index) {
+  return array[index];
+}
+
+// Authors solutions
+
+topEnv.array = (...values) => values;
+
+topEnv.length = array => array.length;
+
+topEnv.element = (array, i) => array[i];
