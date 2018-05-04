@@ -25,11 +25,11 @@
 function parseExpression(program) {
   program = skipSpace(program);
   let match, expr;
-  if (match = /^"([^"]*)"/.exec(program)) {
+  if ((match = /^"([^"]*)"/.exec(program))) {
     expr = { type: 'value', value: match[1] };
-  } else if (match = /^\d+\b/.exec(program)) {
+  } else if ((match = /^\d+\b/.exec(program))) {
     expr = { type: 'value', value: Number(match[0]) };
-  } else if (match = /^[^\s(),"]+/.exec(program)) {
+  } else if ((match = /^[^\s(),"]+/.exec(program))) {
     expr = { type: 'word', name: match[0] };
   } else {
     throw new SyntaxError('Unexpected syntax: ', program);
@@ -77,6 +77,7 @@ function parse(program) {
   return expr;
 }
 
+console.log(parse('define(x, 4)'));
 
 /*
   Eggelicious!
@@ -93,15 +94,16 @@ function parse(program) {
 const specialForms = Object.create(null);
 function evaluate(expr, scope) {
   switch (expr.type) {
-    case 'value': return expr.value;
+    case 'value':
+      return expr.value;
     case 'word':
-      const { name } = expr
+      const { name } = expr;
       if (name in scope) return scope[name];
       throw new ReferenceError(`Undefined binding: ${name}`);
     case 'apply':
       const { operator, args } = expr;
       if (operator.type == 'word' && operator.name in specialForms) {
-        return specialForms[operator.name](expr.args, scope);
+        return specialForms[operator.name](args, scope);
       } else {
         let op = evaluate(operator, scope);
         if (typeof op == 'function') {
@@ -109,8 +111,8 @@ function evaluate(expr, scope) {
         } else {
           throw new TypeError('Applying a non-function');
         }
-      } 
-  } 
+      }
+  }
 }
 
 // Adding specialForms
@@ -153,6 +155,7 @@ specialForms.define = (args, scope) => {
   return value;
 };
 
+/
 
 // The Environment
 const topScope = Object.create(null);
@@ -171,7 +174,10 @@ topScope.print = value => {
   return value;
 };
 
-
+// Running Egg programs
+function run(program) {
+  return evaluate(parse(program), Object.create(topScope));
+}
 
 run(`
 do(define(total, 0),
@@ -204,8 +210,8 @@ specialForms.fun = (args, scope) => {
       localScope[params[i]] = arguments[i];
     }
     return evaluate(body, localScope);
-  }
-}
+  };
+};
 
 run(`
 do(define(plusOne, fun(a, +(a, 1))),
@@ -220,14 +226,12 @@ do(define(pow, fun(base, exp,
    print(pow(2, 10)))
 `); // 1024
 
-// Running Egg programs
-function run(program) {
-  return evaluate(parse(program), Object.create(topScope));
-}
-
 // Exercises
 
 /*
+  #1
+  Arrays
+
   Add support for arrays in Egg by adding the following
   3 functions to the top scope
   ------------------------------------------------------
@@ -250,12 +254,82 @@ topScope.length = function(array) {
 
 topScope.element = function(array, index) {
   return array[index];
+};
+
+/*
+Authors solutions
+
+  topEnv.array = (...values) => values;
+
+  topEnv.length = array => array.length;
+
+  topEnv.element = (array, i) => array[i];
+*/
+
+/*
+  #2
+  Closure
+
+  Functions in Egg support the closure pattern.
+  This means when a function returns a function
+  in Egg, the returned function has access to the
+  local bindings defined along with it.
+
+  Explain the mechanism that makes this work in Egg.
+
+  Answer: the fun form receives scope at the time of
+  definition as an argument and actually returns a
+  JavaScript function. So here, we are riding off the
+  closure functionality provided by JavaScript. The
+  function returned by the fun form is able to access
+  scope at the time of definition because it, itself,
+  is a closure.
+*/
+
+/*
+  #3
+  Add support for comments in Egg
+*/
+
+function skipSpaceAndComments(s) {
+  while (/^(\s|#)/.test(s)) {
+    let i = s.search(/\S/);
+    s = s.slice(i).replace(/^#.*?\n/, '');
+  }
+  return s;
 }
 
-// Authors solutions
+/*
+  #4
+  Fixing Scope
 
-topEnv.array = (...values) => values;
+  Add a special form called set that receives
+  the name of a binding that has already been
+  defined and assign it to the result of the
+  expression passed as the second argument. Make
+  sure that if the binding is globally defined that
+  it gets updated globally, and if the binding hasn't
+  been defined yet that a ReferenceError is raised.
+*/
 
-topEnv.length = array => array.length;
-
-topEnv.element = (array, i) => array[i];
+// solution #4
+specialForms.set = (args, scope) => {
+  const [name, expr] = args;
+  if (args.length != 2 || name.type != 'word') {
+    throw new SyntaxError('Incorrect use of set');
+  }
+  const value = evaluate(expr, scope);
+  const binding = name.name;
+  scope[binding] = value;
+  let found = false;
+  while (scope = Object.getPrototypeOf(scope)) {
+    if (Object.hasOwnProperty.call(scope, binding)) {
+      found = true;
+      scope[binding] = value;
+    }
+  }
+  if (!found) { 
+    throw new ReferenceError('Could not update binding because it does not exist');
+  }
+  return value;
+};
