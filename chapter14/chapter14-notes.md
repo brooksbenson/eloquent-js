@@ -16,6 +16,8 @@ DOM nodes have properties whose values are links to other nodes (children, child
 
 DOM nodes also have methods for finding other nodes that they contain. getElementsByTagName and getElementsByClassName are two of those. These methods return array-like objects that are _live_. This means if any of the nodes contained are modified or removed from the DOM, the data structure is updated in real time. To create a solid collection of nodes, the Array.from method should be used and passed the live data structure.
 
+Element nodes can be queried using the document.querySelectorAll method. This method takes a string whose syntax is exactly similar to the CSS selector syntax and returns a solid data structure filled with element nodes that matched the query. The document.querySelector method returns a single node that was the first match.
+
 ## Modifying the DOM
 
 DOM nodes can only exist in one place at a time. So by taking an existing node and moving it someplace else, it is removed from its original position, not duplicated.
@@ -39,3 +41,19 @@ It is custom to prefix made up attributes with data- to ensure they don't confli
 DOM elements each have their own heights and widths. The offset(height|width) properties contain the size that the element takes up, whereas the client(height|width) properties contain the size within the element, that is, the elements size not including its border.
 
 Getting the precise position of an element on the screen can be done by using the getBoundingClientRect method. It returns an object with top, bottom, left, and right properties that indicate the pixel positions of the sides of the element relative to the top left of the screen. To get the position relative to the whole document, you can use the pageXOffset pageYOffset value of document.
+
+### Position
+
+The position property of style can be used to determine how a particular element is positioned on the page. It's default is static; meaning it takes up its normal position on the page and cannot be modified. By setting the position to relative, though, you can adjust the distance of the element relative to where it would be positioned if its position were static. By modifying the top, right, bottom, and left properties of style, you can adjust where the element is positioned on the page.
+
+When an elements position is absolute it is removed from the normal flow of the document; meaning it can overlap other elements. By setting modifying the top, left, right, and bottom properties of style you can position the element relative to the top left of the first enclosing element whose position property isn't static.
+
+## Style
+
+Element nodes have a style property by which you can manipulate that elements style. You can target a specific declaration via the style property.
+
+_specificity_ is a term that refers to how specifically a particular element is targeted. If an element is targeted with high specificity and has styles applied to it, then is targeted again with lower specificity and has styles applied to it, then, if any of the styles are contradicting, then style that was applied with highed specificity is chosen.
+
+## Animations
+
+The global _requestAnimationFrame_ binding schedules a callback to run once the browser is ready to redraw the DOM, and invokes the callback function with the current time.
