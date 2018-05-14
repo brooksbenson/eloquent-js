@@ -21,6 +21,15 @@
 
   Radius: A line segment that joins the center of
   a circle with any point on its circumference.
+
+  Math.cos & Math.sin: Both functions interpret their
+  arguments as a position on a circle. Math.cos gives
+  the x coordinate of the point, while y gives you the
+  y coordinate of the point.
+
+  Radians: A unit for measuring angles. The argument
+  passed to Math.cos and Math.sin is interpreted as
+  radians.
 */
 
 const cat = document.querySelector('img');
