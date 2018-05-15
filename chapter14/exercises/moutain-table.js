@@ -1,4 +1,8 @@
 /*
+  Build a table from MOUTAINS data.
+*/
+
+/*
   <h1>Mountains</h1>
 
   <div id="mountains"></div>
@@ -28,7 +32,6 @@ function tableRow(cellType, ...cells) {
   return row;
 }
 
-const table = document.createElement('table');
 const headerData = [
   {
     text: 'Name',
@@ -43,7 +46,11 @@ const headerData = [
     align: 'left'
   }
 ];
+
+const table = document.createElement('table');
+
 table.appendChild(tableRow('th', ...headerData));
+
 for (let m of MOUNTAINS) {
   table.appendChild(
     tableRow('td', m['name'], { text: m['height'], align: 'right' }, m['place'])
