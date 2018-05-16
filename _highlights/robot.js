@@ -4,13 +4,20 @@
 */
 
 const roads = [
-  "Alice's House-Bob's House",   "Alice's House-Cabin",
-  "Alice's House-Post Office",   "Bob's House-Town Hall",
-  "Daria's House-Ernie's House", "Daria's House-Town Hall",
-  "Ernie's House-Grete's House", "Grete's House-Farm",
-  "Grete's House-Shop",          "Marketplace-Farm",
-  "Marketplace-Post Office",     "Marketplace-Shop",
-  "Marketplace-Town Hall",       "Shop-Town Hall"
+  "Alice's House-Bob's House",
+  "Alice's House-Cabin",
+  "Alice's House-Post Office",
+  "Bob's House-Town Hall",
+  "Daria's House-Ernie's House",
+  "Daria's House-Town Hall",
+  "Ernie's House-Grete's House",
+  "Grete's House-Farm",
+  "Grete's House-Shop",
+  'Marketplace-Farm',
+  'Marketplace-Post Office',
+  'Marketplace-Shop',
+  'Marketplace-Town Hall',
+  'Shop-Town Hall'
 ];
 
 /*
@@ -24,11 +31,9 @@ const roads = [
 function buildGraph(edges) {
   const graph = Object.create(null);
   const addEdge = (start, end) => {
-    graph[start] == null
-      ? graph[start] = [end]
-      : graph[start].push(end);
+    graph[start] == null ? (graph[start] = [end]) : graph[start].push(end);
   };
-  
+
   for (let [start, end] of edges.map(r => r.split('-'))) {
     addEdge(start, end);
     addEdge(end, start);
@@ -60,11 +65,13 @@ class VillageState {
   move(destination) {
     if (!roadGraph[this.place].includes(destination)) {
       return this;
-    } 
-    let parcels = this.parcels.map(p => {
-      if (this.place != p.place) return p; 
-      return {place: destination, address: p.address};
-    }).filter(p => p.place != p.address);
+    }
+    let parcels = this.parcels
+      .map(p => {
+        if (this.place != p.place) return p;
+        return { place: destination, address: p.address };
+      })
+      .filter(p => p.place != p.address);
     return new VillageState(destination, parcels);
   }
 }
@@ -95,7 +102,7 @@ class VillageState {
 */
 
 function runRobot(state, robot, memory) {
-  for (let turn = 0;; turn++) {
+  for (let turn = 0; ; turn++) {
     if (state.parcels.length === 0) {
       return turn;
     }
@@ -114,24 +121,24 @@ function runRobot(state, robot, memory) {
   necessary.
 */
 
-
 const randomPick = arr => arr[Math.floor(Math.random() * arr.length)];
 
 function randomBot(state) {
-  return {direction: randomPick(roadGraph[state.place])};
+  return { direction: randomPick(roadGraph[state.place]) };
 }
 
 VillageState.randomInit = function(parcelCount = 5) {
-  let parcels = [], places = Object.keys(roadGraph);
+  let parcels = [],
+    places = Object.keys(roadGraph);
   for (let i = 0; i < parcelCount; i++) {
     let address = randomPick(places);
     let place;
     do {
       place = randomPick(places);
     } while (place == address);
-    parcels.push({place, address});
+    parcels.push({ place, address });
   }
-  return new VillageState("Post Office", parcels);
+  return new VillageState('Post Office', parcels);
 };
 
 // runRobot(randomBot, VillageState.randomInit());
@@ -147,10 +154,19 @@ VillageState.randomInit = function(parcelCount = 5) {
 */
 
 const mailRoute = [
-  "Alice's House", "Cabin", "Alice's House", "Bob's House",
-  "Town Hall", "Daria's House", "Ernie's House",
-  "Grete's House", "Shop", "Grete's House", "Farm",
-  "Marketplace", "Post Office"
+  "Alice's House",
+  'Cabin',
+  "Alice's House",
+  "Bob's House",
+  'Town Hall',
+  "Daria's House",
+  "Ernie's House",
+  "Grete's House",
+  'Shop',
+  "Grete's House",
+  'Farm',
+  'Marketplace',
+  'Post Office'
 ];
 
 /*
@@ -167,9 +183,8 @@ function routeRobot(state, memory) {
   return {
     direction: memory[0],
     memory: memory.slice(1)
-  }
+  };
 }
-
 
 /*
   Next, we are going to implement a path finding robot
@@ -190,13 +205,13 @@ function routeRobot(state, memory) {
 */
 
 function findRoute(graph, a, b) {
-  let work = [{at: a, route: []}];
+  let work = [{ at: a, route: [] }];
   for (let i = 0; i < work.length; i++) {
-    let {at, route} = work[i];
+    let { at, route } = work[i];
     for (let place of graph[at]) {
       if (place == b) return route.concat(place);
       if (!work.some(w => w.at == place)) {
-        work.push({at: place, route: route.concat(place)});
+        work.push({ at: place, route: route.concat(place) });
       }
     }
   }
@@ -220,14 +235,15 @@ function findRoute(graph, a, b) {
   has already been stored in the work list.
 */
 
-function goalOrientedRobot({place, parcels}, route) {
+function goalOrientedRobot({ place, parcels }, route) {
   if (route.length === 0) {
     let parcel = parcels[0];
-    route = parcel.place != place
-      ? findRoute(roadGraph, place, parcel.place)
-      : findRoute(roadGraph, place, parcel.address);
+    route =
+      parcel.place != place
+        ? findRoute(roadGraph, place, parcel.place)
+        : findRoute(roadGraph, place, parcel.address);
   }
-  return {direction: route[0], memory: route.slice(1)};
+  return { direction: route[0], memory: route.slice(1) };
 }
 
 /*
@@ -284,7 +300,7 @@ let robots = [
   the number of steps it takes to a total on each
   iteration, then returns the total steps divided
   by the total iterations, thus providing an average.
-*/ 
+*/
 
 function testRobot(robot, memory, iterations = 100, state) {
   let totalTurns = 0;
@@ -329,20 +345,20 @@ function compareRobots(robots) {
   of the routes and executes.
 */
 
-function customRobot({place, parcels}, route) {
+function customRobot({ place, parcels }, route) {
   if (route.length === 0) {
-    let routes = parcels.map(p => (
-      p.place == place
-        ? findRoute(roadGraph, place, p.address)
-        : findRoute(roadGraph, place, p.place)
-    ));
-    route = routes.reduce((shortest, current) => (
-      shortest.length < current.length
-        ? shortest
-        : current
-    ));
+    let routes = parcels.map(
+      p =>
+        p.place == place
+          ? findRoute(roadGraph, place, p.address)
+          : findRoute(roadGraph, place, p.place)
+    );
+    route = routes.reduce(
+      (shortest, current) =>
+        shortest.length < current.length ? shortest : current
+    );
   }
-  return {direction: route[0], memory: route.slice(1)};
+  return { direction: route[0], memory: route.slice(1) };
 }
 
 robots.push({

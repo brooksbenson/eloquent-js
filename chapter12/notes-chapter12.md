@@ -1,10 +1,10 @@
 # A Programming Language
 
-Building a programming language can be useful for domain specific problems. Regular Expressions, for example, provide a syntax for matching patterns in string data; a domain specific problem. The result of trying to match string data in JS may be more painful to look at and a lot more work to use than a regular expression. This is an example of how a new syntax can better solve domain specific problems.
+Building a programming language can be useful for domain specific problems. Regular Expressions, for example, provide a syntax for matching patterns in string data: a domain specific problem. The result of trying to match string data in JS may be more painful to look at and a lot more work to use than a regular expression. This is an example of how a new syntax can better solve domain specific problems.
 
 ## Parsing
 
-The most immediately visible part of a program is its syntax. A _parser_ is program that reads a piece of text and produces a data structure that reflects the structure of the program contained in that text. If the text does not form a valid program, the parser points out the error.
+The most immediately visible part of a program is its syntax. A _parser_ is a program that reads a piece of text and produces a data structure that reflects the structure of the program contained in that text. If the text does not form a valid program, the parser points out the error.
 
 ## Evaluating
 

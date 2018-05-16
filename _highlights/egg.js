@@ -155,8 +155,6 @@ specialForms.define = (args, scope) => {
   return value;
 };
 
-/
-
 // The Environment
 const topScope = Object.create(null);
 
@@ -322,14 +320,16 @@ specialForms.set = (args, scope) => {
   const binding = name.name;
   scope[binding] = value;
   let found = false;
-  while (scope = Object.getPrototypeOf(scope)) {
+  while ((scope = Object.getPrototypeOf(scope))) {
     if (Object.hasOwnProperty.call(scope, binding)) {
       found = true;
       scope[binding] = value;
     }
   }
-  if (!found) { 
-    throw new ReferenceError('Could not update binding because it does not exist');
+  if (!found) {
+    throw new ReferenceError(
+      'Could not update binding because it does not exist'
+    );
   }
   return value;
 };
