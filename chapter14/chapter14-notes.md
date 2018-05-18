@@ -46,7 +46,7 @@ Getting the precise position of an element on the screen can be done by using th
 
 The position property of style can be used to determine how a particular element is positioned on the page. It's default is static; meaning it takes up its normal position on the page and cannot be modified. By setting the position to relative, though, you can adjust the distance of the element relative to where it would be positioned if its position were static. By modifying the top, right, bottom, and left properties of style, you can adjust where the element is positioned on the page.
 
-When an elements position is absolute it is removed from the normal flow of the document; meaning it can overlap other elements. By setting modifying the top, left, right, and bottom properties of style you can position the element relative to the top left of the first enclosing element whose position property isn't static.
+When an elements position is absolute it is removed from the normal flow of the document; meaning it can overlap other elements. By modifying the top, left, right, and bottom properties of style you can position the element relative to the top left of the first enclosing element whose position property isn't static.
 
 ## Style
 
