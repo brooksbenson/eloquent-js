@@ -40,4 +40,8 @@ When a page finishes loading, the load event fires on the window and document bo
 
 Web Workers are JS processes that run alongside the main script on their own timeline and are useful because they remove code from the normal event loop. They do not have access to the global scope nor do they share any other data with the main script; they can be thought of like pure functions that receive "messages".
 
-Web workers require "message" events to be registered to them. To fire the message callback, you invoke the postMessage method of the web worker (made available in the main script) and pass it some data which is made available in the argument passed to the callback under the name "data". The value received by the callback is a serialized version of the value, not the value itself
+Web workers require "message" events to be registered to them. To fire the message callback, you invoke the postMessage method of the web worker (made available in the main script) and pass it some data which is made available in the argument passed to the callback under the name "data". The value received by the callback is a serialized version of the value, not the value itself.
+
+## Debouncing
+
+Debouncing is a technique for handling events that occur rapidly, like scroll and mousemove. By using setTimeout, it is possible to decide when and how ofter the main logic of an event handler occurs.
