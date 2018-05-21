@@ -15,7 +15,7 @@ class Balloon {
   }
 
   static newState(size) {
-    return size > 50 ? new Balloon(size, '💥') : new Balloon(size, '🎈');
+    return size > 50 ? new Balloon(size, '🎉') : new Balloon(size, '🎈');
   }
 }
 
