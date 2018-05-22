@@ -18,6 +18,13 @@
 
 const mouseTrail = [];
 
+document.body.addEventListener('mousemove', ({ clientX, clientY }) => {
+  addTrail(clientX, clientY);
+  if (mouseTrail.length < 10) {
+    removeTrail();
+  }
+});
+
 function addTrail(x, y) {
   const node = document.createElement('div');
   node.className = 'trail';
@@ -31,12 +38,3 @@ function removeTrail() {
   const node = mouseTrail.pop();
   node.remove();
 }
-
-document.body.addEventListener('mousemove', ({ clientX, clientY }) => {
-  if (mouseTrail.length < 10) {
-    addTrail(clientX, clientY);
-  } else {
-    addTrail(clientX, clientY);
-    removeTrail();
-  }
-});
