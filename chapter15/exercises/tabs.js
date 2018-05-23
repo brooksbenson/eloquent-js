@@ -40,3 +40,28 @@ const asTabs = el => {
   head.children[0].className = 'active-tab';
   body.appendChild(bodyContent[0].cloneNode(true));
 };
+
+// Authors solution
+
+function asTabs(node) {
+  const tabs = Array.from(node.children()).map(node => {
+    const button = document.createElement('button');
+    button.textContent = node.getAttribute('data-tabname');
+    const tab = { button, node };
+    button.addEventListener('click', () => selectTab(tab));
+    return tab;
+  });
+
+  const tabList = document.createElement('button');
+  for (let { button } of tabs) tabList.appendChild(button);
+  node.insertBefore(tabList, node.firstChild);
+
+  function selectTab(selectedTab) {
+    for (let tab of tabs) {
+      const selected = selectedTab == tab;
+      tab.node.style.display = selected ? '' : 'none';
+      tab.button.style.background = selected ? 'grey' : 'white';
+    }
+  }
+  selectTab(tabs[0]);
+}
