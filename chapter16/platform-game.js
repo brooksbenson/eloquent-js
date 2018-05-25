@@ -12,7 +12,7 @@ class Level {
       return row.map((char, x) => {
         const type = levelChars[char];
         if (typeof type == 'string') return type;
-        this.startActors.push(type.create(new Vec(x, y), char));
+        this.actors.push(type.create(new Vec(x, y), char));
         return 'empty';
       });
     });
@@ -27,7 +27,7 @@ class State {
   }
 
   static start(level) {
-    return new State(level, level.startActors, 'playing');
+    return new State(level, level.actors, 'playing');
   }
 
   get player() {
@@ -132,8 +132,8 @@ function elt(name, attrs, ...children) {
 }
 
 class DOMdisplay {
-  constructor(parent, lvl) {
-    this.dom = elt('div', { class: 'game' }, drawGrid(lvl));
+  constructor(parent, level) {
+    this.dom = elt('div', { class: 'game' }, drawGrid(level));
     this.actorLayer = null;
     parent.appendChild(this.dom);
   }
@@ -145,12 +145,47 @@ class DOMdisplay {
 
 const scale = 20;
 
-function drawGrid(lvl) {
+DOMdisplay.prototype.setState = function(state) {
+  if (this.actorLayer) this.actorLayer.remove();
+  this.actorLayer = drawActors(state.actors);
+  console.log(this.actorLayer);
+  this.dom.appendChild(this.actorLayer);
+  this.dom.className = `game ${state.status}`;
+  this.scrollPlayerIntoView(state);
+};
+
+DOMdisplay.prototype.scrollPlayerIntoView = function(state) {
+  const width = this.dom.clientWidth;
+  const height = this.dom.clientHeight;
+  const margin = width / 3;
+
+  // Viewport
+  const left = this.dom.scrollLeft;
+  const right = left + width;
+  const top = this.dom.scrollTop;
+  const bottom = top + height;
+
+  const player = state.player;
+  const center = player.pos.plus(player.size.times(0.5)).times(scale);
+
+  if (center.x < left + margin) {
+    this.dom.scrollLeft = center.x - margin;
+  } else if (center.x > right - margin) {
+    this.dom.scrollLeft = center.x + margin - width;
+  }
+  if (center.y < top + margin) {
+    this.dom.scrollTop = center.y - margin;
+  } else if (center.y > bottom - margin) {
+    this.dom.scrollTop = center.y + margin - height;
+  }
+};
+
+function drawGrid(level) {
   return elt(
     'table',
     {
       class: 'background',
-      style: `width: ${lvl.width * scale}px`
+      style: `width: ${level.width * scale}px`
     },
     ...level.rows.map(row =>
       elt(
@@ -159,5 +194,20 @@ function drawGrid(lvl) {
         ...row.map(type => elt('td', { class: type }))
       )
     )
+  );
+}
+
+function drawActors(actors) {
+  return elt(
+    'div',
+    {},
+    actors.map(actor => {
+      const rec = elt('div', { class: `actor ${actor.type}` });
+      rec.style.width = `${actor.size.x * scale}px`;
+      rec.style.height = `${actor.size.y * scale}px`;
+      rec.style.left = `${actor.pos.x * scale}px`;
+      rec.style.top = `${actor.pos.y * scale}px`;
+      return rec;
+    })
   );
 }
