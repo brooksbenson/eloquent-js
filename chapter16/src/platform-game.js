@@ -19,6 +19,22 @@ class Level {
   }
 }
 
+Level.prototype.touches = function(pos, size, type) {
+  const xStart = Math.floor(pos.x);
+  const xEnd = Math.ceil(pos.x + size.x);
+  const yStart = Math.floor(pos.y);
+  const yEnd = Math.ceil(pos.y + size.y);
+
+  for (let y = yStart; y < yEnd; y++) {
+    for (let x = xStart; x < xEnd; x++) {
+      const isOutside = x < 0 || x >= this.width || y < 0 || y >= this.height;
+      const here = isOutside ? 'wall' : this.rows[y][x];
+      if (here == type) return true;
+    }
+  }
+  return false;
+};
+
 class State {
   constructor(level, actors, status) {
     this.level = level;
@@ -34,6 +50,22 @@ class State {
     return this.actors.find(a => a.type == 'player');
   }
 }
+
+State.prototype.update = function(time, keys) {
+  const actors = this.actors.map(actor => actor.update(time, this, keys));
+  let newState = new State(this.level, actors, this.status);
+  if (newState.status != 'playing') return newState;
+  const { player } = newState;
+  if (this.level.touches(player.pos, player.size, 'lava')) {
+    return new State(this.level, actors, 'lost');
+  }
+  for (let actor of actors) {
+    if (actor != player && overlap(actor, player)) {
+      newState = actor.collide(newState);
+    }
+  }
+  return newState;
+};
 
 class Vec {
   constructor(x, y) {
@@ -55,7 +87,7 @@ class Player {
   }
 
   get type() {
-    return 'lava';
+    return 'player';
   }
 
   static create(pos) {
@@ -148,7 +180,6 @@ const scale = 20;
 DOMdisplay.prototype.setState = function(state) {
   if (this.actorLayer) this.actorLayer.remove();
   this.actorLayer = drawActors(state.actors);
-  console.log(this.actorLayer);
   this.dom.appendChild(this.actorLayer);
   this.dom.className = `game ${state.status}`;
   this.scrollPlayerIntoView(state);
@@ -201,7 +232,7 @@ function drawActors(actors) {
   return elt(
     'div',
     {},
-    actors.map(actor => {
+    ...actors.map(actor => {
       const rec = elt('div', { class: `actor ${actor.type}` });
       rec.style.width = `${actor.size.x * scale}px`;
       rec.style.height = `${actor.size.y * scale}px`;
