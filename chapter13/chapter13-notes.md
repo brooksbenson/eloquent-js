@@ -10,7 +10,15 @@ Hypertext Transfer Protocol is a style of communication for retrieving named res
 
 ## Transmission Control Protocol
 
-A protocol that addresses the problem of making sure that resources sent back from an HTTP request arrive in the correct order and at the correct location. It requires a _server_ to be listening for requests on a port, and a _client_ to make a connection to the servers designated port. This connection creates a two-way pipe by which bits can flow between the server and the client.
+A TCP connection is where one computer must be waiting, or listening, for other computers to start talking to it. The listening computer is composed of ports, each of which designated for a certain style of communication. Another computer can establish a connection with the listening computer by using the correct port number. The listening computer is called the _server_, and the connecting computer is called the _client_.
+
+## Uniform Resource Locator
+
+Each document on the web is named by a URL, which takes the following form: http://eloquentjavascript.net/13_browser.html. (protocol|server|path).
+
+## IP Address
+
+Machines connected to the internet get an IP address, which is an address used to send messages to that machine. IP addresses are hard to read, so we registed domain names to point to an IP address.
 
 ## HTML
 
@@ -18,10 +26,6 @@ HTML is the document format used for web pages. They contain a head and a body; 
 
 (UTF-8 is a way to encode unicode text as binary data. UTF-8 = Unicode).
 
-HTML uses what are called tags. Tags are used to denote information about the document and can contain what are called attributes. Attributes are used to pass extra information to a tag.
+HTML uses what are called tags. Tags are used to structure the document and can contain what are called attributes. Attributes are key value pairs used to pass extra information to a tag.
 
 In HTML, an ampersand followed by a name or a character code then a semicolon is called an entity and will be replaced by the encoded character when the document renders.
-
-## Browsers
-
-Browsers are built for rendering HTML documents. There are a handful of major browsers in use. All support mostly the same features. It's important to standardize our code with transpilers so that it works across all browser environments.
