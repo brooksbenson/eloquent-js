@@ -1,11 +1,12 @@
 /*
-  Write your own version of getElementsByTagName
-  that receives an element node and returns all
-  direct and indirect child nodes of the type
-  denoted by the string passed as the second
-  argument.
+  Write a function that returns an array
+  composed of element nodes that are
+  descendants of the *node* parameter
+  and whose tag name matches the *tagName*
+  parameter.
 */
 
+// FIRST SOLUTION
 const byTagName = (node, tagName) => {
   tagName = tagName.toUpperCase();
   const elements = [];
@@ -23,3 +24,15 @@ const byTagName = (node, tagName) => {
   traverse(node);
   return elements;
 };
+
+// SECOND SOLUTION
+function byTagName(node, tagName) {
+  const elements = [];
+  (function find(el) {
+    if (el.nodeName == tagName.toUpperCase()) {
+      elements.push(el);
+    }
+    Array.from(el.children).forEach(c => find(c));
+  })(node);
+  return elements;
+}

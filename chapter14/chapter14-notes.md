@@ -1,14 +1,16 @@
 # The Document Object Model
 
-When a web page is received by a browser, the browser parses it and builds a data structure out of it. The browser uses this data structure to draw the web page on the screen. This structure is one of the tools that a JavaScript program has available. One important thing to note about this data structure is that it is _live_. This means when you modify the data structure the page is redrawn on the screen.
+One of the tools a JavaScript program has in its sandbox is what is called the DOM, or document object model. When a web page is received by a browser, the browser parses it and builds the DOM out of it. The DOM is a live data structure used to draw the webpage on the screen.
 
-The global binding _document_ gives us access to the data structure created from parsing the HTML document. This data structure is called the Document Object Model, or the DOM. The document binding has a documentElement property that refers to the <html> element of the document, which in turn has head and body properties that refers to those parts of the data structure/document.
+The _document_ binding gives us access to the document object model.
 
 ## Trees
 
-A tree is a branching data structure whose nodes contain nodes that are similar in nature to their parent and has a well defined root. They also don't have cycles, meaning that a node does not contain itself directly or indirectly.
+A data structure is called a tree when is has a well defined root node, has nodes that refer to other nodes, and contains no cycles (when a node refers to a node that refers to itself, directly or indirectly).
 
-The DOM is a tree whose nodes are similar but also differ in important ways. Elements are nodes that contain children, whereas text nodes to not. To view a nodes type, the nodeType property is available on every node and contains a code that denotes the nodes type.
+A leaf in a tree is a node that does not contain any other nodes.
+
+The DOM is a tree whose nodes are similar but also differ in important ways. Elements are nodes that contain children, whereas text nodes do not (leaves). To view a nodes type, the nodeType property is available on every node and contains a numerical code that refers to its type.
 
 ## Finding Nodes
 
@@ -16,7 +18,7 @@ DOM nodes have properties whose values are links to other nodes (children, child
 
 DOM nodes also have methods for finding other nodes that they contain. getElementsByTagName and getElementsByClassName are two of those. These methods return array-like objects that are _live_. This means if any of the nodes contained are modified or removed from the DOM, the data structure is updated in real time. To create a solid collection of nodes, the Array.from method should be used and passed the live data structure.
 
-Element nodes can be queried using the document.querySelectorAll method. This method takes a string whose syntax is exactly similar to the CSS selector syntax and returns a solid data structure filled with element nodes that matched the query. The document.querySelector method returns a single node that was the first match.
+Element nodes can be queried using the document.querySelectorAll method. This method takes a string whose syntax is exactly similar to the CSS selector syntax and returns a solid data structure filled with element nodes that matched the query. The document.querySelector method is exactly similar except it returns a single node that matched first.
 
 ## Modifying the DOM
 
@@ -34,15 +36,15 @@ The document binding contains methods for creating new nodes, such as: document.
 
 Most standard HTML attributes are available on DOM nodes as properties. Though, HTML allows you to define your own attributes, and these are not directly available on DOM nodes. Instead, you need to use the getAttribute and setAttribute methods to work with them.
 
-It is custom to prefix made up attributes with data- to ensure they don't conflict with standard attributes.
+It is customary to prefix made up attributes with data- to ensure they don't conflict with standard attributes.
 
 ## Layout
 
-DOM elements each have their own heights and widths. The offset(height|width) properties contain the size that the element takes up, whereas the client(height|width) properties contain the size within the element, that is, the elements size not including its border.
+DOM elements each have their own heights and widths. The offset(Height|Width) properties contain the size that the element takes up to the edge of its border, whereas the client(Height|Width) properties contain the size of the element up to where to the padding meets the border.
 
-Getting the precise position of an element on the screen can be done by using the getBoundingClientRect method. It returns an object with top, bottom, left, and right properties that indicate the pixel positions of the sides of the element relative to the top left of the screen. To get the position relative to the whole document, you can use the pageXOffset pageYOffset value of document.
+Getting the precise position of an element on the screen can be done by using the _getBoundingClientRect_ method. It returns an object with top, bottom, left, and right properties that indicate the pixel positions of the sides of the element relative to the top left of the screen. To get the position relative to the entire document, you can add the pageXOffset or pageYOffset values of document to the values returned from getBoundingClientRect().
 
-### Position
+## Position
 
 The position property of style can be used to determine how a particular element is positioned on the page. It's default is static; meaning it takes up its normal position on the page and cannot be modified. By setting the position to relative, though, you can adjust the distance of the element relative to where it would be positioned if its position were static. By modifying the top, right, bottom, and left properties of style, you can adjust where the element is positioned on the page.
 
@@ -52,7 +54,7 @@ When an elements position is absolute it is removed from the normal flow of the 
 
 Element nodes have a style property by which you can manipulate that elements style. You can target a specific declaration via the style property.
 
-_specificity_ is a term that refers to how specifically a particular element is targeted. If an element is targeted with high specificity and has styles applied to it, then is targeted again with lower specificity and has styles applied to it, then, if any of the styles are contradicting, then style that was applied with highed specificity is chosen.
+_specificity_ is a term that refers to how specifically a particular element is targeted. If an element is targeted with high specificity and has styles applied to it, then is targeted again with lower specificity and has styles applied to it, then, if any of the styles are contradicting, the style that was applied with higher specificity is chosen.
 
 ## Animations
 

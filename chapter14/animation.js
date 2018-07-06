@@ -24,8 +24,9 @@
 
   Math.cos & Math.sin: Both functions interpret their
   arguments as a position on a circle. Math.cos gives
-  the x coordinate of the point, while y gives you the
-  y coordinate of the point.
+  distance in radians horizontally from the center, and 
+  Math.sin gives the distance in radians vertically from the
+  center. 
 
   Radians: A unit for measuring angles. The argument
   passed to Math.cos and Math.sin is interpreted as
