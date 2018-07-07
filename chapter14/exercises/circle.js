@@ -9,12 +9,12 @@ function coordinateToPercentage(c) {
   return (c / 2) * 100 + '%';
 }
 
-const ball = document.querySelector('.ball');
+const circle = document.querySelector('.circle');
 let angle = Math.PI / 2;
 function animate(time, pastTime) {
   if (pastTime) angle += (time - pastTime) * 0.001;
-  ball.style.top = coordinateToPercentage(Math.sin(angle));
-  ball.style.left = coordinateToPercentage(Math.cos(angle));
+  circle.style.top = coordinateToPercentage(Math.sin(angle));
+  circle.style.left = coordinateToPercentage(Math.cos(angle));
   requestAnimationFrame(nextTime => animate(nextTime, time));
 }
 requestAnimationFrame(animate);
@@ -24,7 +24,7 @@ requestAnimationFrame(animate);
 HTML HTML HTML
 
 <div class="body">
-  <div class="ball">
+  <div class="circle">
   </div>
 </div>
 <style>
@@ -35,7 +35,7 @@ HTML HTML HTML
     height: 400px;
     width: 400px;
   }
-  .ball {
+  .circle {
     background: red;
     border-radius: 50%;
     height: 10px;
