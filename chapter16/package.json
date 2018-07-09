@@ -1,0 +1,14 @@
+{
+  "name": "platform-game",
+  "version": "1.0.0",
+  "description": "A platform game authored by Marijn Haverbeke",
+  "main": "src/index.js",
+  "author": "Brooks Benson",
+  "license": "MIT",
+  "devDependencies": {
+    "webpack": "^4.15.1"
+  },
+  "dependencies": {
+    "webpack-cli": "^3.0.8"
+  }
+}
