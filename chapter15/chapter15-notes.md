@@ -2,6 +2,18 @@
 
 There are a myriad of events that can happen in the browser context: clicks, key presses, focus, etc. The browser allows us to program responses to events through what are called _event listeners_. By registering an event listener to a DOM node and providing a callback to execute we can programatically respond to events.
 
+## Window
+
+_window_ is a binding provided by the browser and represents the browser window that contains the document. It is capable of having an event listener registered to it.
+
+## onclick vs. addEventListener
+
+DOM nodes have an onclick attribute that can be assigned a function value that is executed when a click happens in the context of that node. The problem with onclick is that it can only be assigned one function value at a time. An alternative to the onclick attribute is event listeners. Multiple event listeners can be assigned to a DOM node, and event listeners are capable of handling more events than clicks.
+
+## The Event Object
+
+The event object is passed as an argument to the event handling functions registers via addEventListener. It contains extra info about the event and some methods for changing how the event behaves.
+
 ## Propagation
 
 Events are said to propagate upwards through the DOM. Event listeners attached to parent nodes will be fired if the event matches the listener. To stop propagation, use the stopPropagation method on the event.
@@ -44,4 +56,4 @@ Web workers require "message" events to be registered to them. To fire the messa
 
 ## Debouncing
 
-Debouncing is a technique for handling events that occur rapidly, like scroll and mousemove. By using setTimeout, it is possible to decide when and how ofter the main logic of an event handler occurs.
+Debouncing is a technique for handling events that occur rapidly, like scroll and mousemove. By using setTimeout, it is possible to decide when and how often the main logic of an event handler occurs.
