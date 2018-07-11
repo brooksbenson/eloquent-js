@@ -1,4 +1,4 @@
-// 1: Player
+import { Vec } from './utils';
 
 class Player {
   constructor(pos, speed) {
@@ -16,8 +16,6 @@ class Player {
 }
 
 Player.prototype.size = new Vec(0.8, 1.5);
-
-// 2: Lava
 
 class Lava {
   constructor(pos, speed, reset) {
@@ -43,7 +41,9 @@ class Lava {
 
 Lava.prototype.size = new Vec(1, 1);
 
-//3: Coin
+Lava.prototype.collide = function(state) {
+  return new State(state.level, state.actors, 'lost');
+};
 
 class Coin {
   constructor(pos, basePos, wobble) {
@@ -68,3 +68,12 @@ class Coin {
 }
 
 Coin.prototype.size = new Vec(0.6, 0.6);
+
+Coin.prototype.collide = function(state) {
+  let filtered = state.actors.filter(a => a != this);
+  let status = state.status;
+  if (!filtered.some(a => a.type == 'coin')) status = 'won';
+  return new State(state.level, filtered, status);
+};
+
+export { Player, Lava, Coin };

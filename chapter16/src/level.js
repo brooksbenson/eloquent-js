@@ -1,3 +1,5 @@
+import { Player, Lava, Coin } from './actors';
+import { Vec } from './utils';
 /* 
   Characters that compose a serialized level
   plan and their corresponding values. The
@@ -12,8 +14,8 @@ const levelChars = {
   '=': Lava,
   '|': Lava,
   v: Lava,
-  o: Coin,
-  M: Monster
+  o: Coin
+  // M: Monster
 };
 
 /*
@@ -55,3 +57,37 @@ class Level {
     );
   }
 }
+
+/*
+  Before each animation, the game needs to check
+  whether two objects will touch. The function below 
+  is designed to return true or false based on whether
+  an object of a given type touches another.
+*/
+
+Level.prototype.touches = function(pos, size, type) {
+  let xStart = Math.floor(pos.x);
+  let xEnd = Math.ceil(pos.x + size.x);
+  let yStart = Math.floor(pos.y);
+  let yEnd = Math.ceil(pos.y + size.y);
+
+  /*
+    The computations above derive a grid range
+    in the x and y directions from the pos and
+    size arguments. By plugging these values
+    into a loop, we can check every grid element
+    for a given level in the defined range and
+    see what's there.
+  */
+
+  for (let y = yStart; y < yEnd; y++) {
+    for (let x = xStart; x < xEnd; x++) {
+      let isOutside = x < 0 || x >= this.width || y < 0 || y >= this.height;
+      let here = isOutside ? 'wall' : this.rows[y][x];
+      if (here == type) return true;
+    }
+  }
+  return false;
+};
+
+export default Level;
