@@ -1,18 +1,5 @@
-import State from './state';
-import Level from './level';
+import { runGame } from './utils';
 import DOMDisplay from './dom';
+import levels from './levels';
 
-const simpleLevelPlan = `
-......................
-..#................#..
-..#..............=.#..
-..#.........o.o....#..
-..#.@......#####...#..
-..#####............#..
-......#++++++++++++#..
-......##############..
-......................`;
-
-const level = new Level(simpleLevelPlan);
-const display = new DOMDisplay(document.body, level);
-display.syncState(State.start(level));
+runGame(levels, DOMDisplay);

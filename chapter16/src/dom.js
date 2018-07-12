@@ -107,8 +107,7 @@ DOMDisplay.prototype.scrollPlayerIntoView = function(state) {
     top left corner and then add its width and height both
     divided by two, then multiply this new vector by the
     the number of pixels that take up a grid unit (20px).
-    This figure is the center of our avatar within the game
-    viewport.
+    This figure is the center of our avatar within the game.
   */
 
   let player = state.player;
@@ -116,9 +115,9 @@ DOMDisplay.prototype.scrollPlayerIntoView = function(state) {
 
   /*
     Next follows a series of checks to make sure the avatar
-    is within a neutral center. If the avatar ever leaves the
-    center, we adjust the scroll position of the viewport
-    accordingly.
+    is within a neutral center within the game viewport. If 
+    the avatar is oustide center, we adjust the scroll position 
+    of the viewport accordingly.
   */
 
   if (center.x < left + margin) {
@@ -126,6 +125,7 @@ DOMDisplay.prototype.scrollPlayerIntoView = function(state) {
   } else if (center.x > right - margin) {
     this.dom.scrollLeft = center.x + margin - width;
   }
+
   if (center.y < top + margin) {
     this.dom.scrollTop = center.y - margin;
   } else if (center.y > bottom - margin) {
